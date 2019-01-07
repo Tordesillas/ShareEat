@@ -33,7 +33,7 @@ const ProfileStack = createStackNavigator({
     Profile: ProfileScreen
 });
 ProfileStack.navigationOptions = {
-    tabBarLabel: 'Mon profil',
+    tabBarLabel: 'Mon compte',
     tabBarIcon: ({ focused }) => (
         <TabBarIcon
             focused={focused}
