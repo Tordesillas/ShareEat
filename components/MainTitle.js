@@ -14,7 +14,7 @@ export default class MainTitle extends React.Component {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#fff',
-        color: Colors.mainTitle,
+        color: Colors.CORAL,
         fontSize: 20,
         marginTop: 15
     }
