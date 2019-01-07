@@ -7,7 +7,7 @@ export default class EventList extends React.Component {
             <View style={styles.main_container}>
                 <Text>Event List</Text>
             </View>
-        )
+        );
     }
 }
 
