@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-export default class ErrorList extends React.Component {
+export default class EventList extends React.Component {
     render() {
         return (
             <View style={styles.main_container}>
