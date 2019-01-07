@@ -13,7 +13,9 @@ import ProfileScreen from "../screens/ProfileScreen";
 const HomeStack = createStackNavigator({
     Home: HomeScreen,
     Events: SearchEventScreen,
-    Event: EventScreen
+    Event: EventScreen,
+    SearchEvent: SearchEventScreen,
+    NotImplemented: NotImplementedScreen
 });
 HomeStack.navigationOptions = {
     tabBarLabel: 'Accueil',
