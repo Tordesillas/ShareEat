@@ -2,9 +2,9 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Colors from "../constants/Colors";
 
-export default class ProfileScreen extends React.Component {
+export default class NotImplementedScreen extends React.Component {
     static navigationOptions = {
-        title: 'Mon compte',
+        title: 'ShareEat',
         headerStyle: { backgroundColor: Colors.DARK_GREY },
         headerTitleStyle: { color: Colors.WHITE }
     };
@@ -12,7 +12,7 @@ export default class ProfileScreen extends React.Component {
     render() {
         return (
             <View style={styles.main_container}>
-                <Text>Profile</Text>
+                <Text>Non implémenté</Text>
             </View>
         );
     }

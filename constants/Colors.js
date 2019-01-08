@@ -1,7 +1,7 @@
 export default {
-    GREY: "#2c3137",
-    DARK_GREY: "#41484d",
-    LIGHT_GREY: "#efefef",
-    CORAL: "#ed534b",
-    WHITE: "#ffffff"
+  GREY: "#41484d",
+  DARK_GREY: "#2c3137",
+  LIGHT_GREY: "#efefef",
+  CORAL: "#ed534b",
+  WHITE: "#ffffff"
 }
