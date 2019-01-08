@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import EventList from "../components/EventList";
 import MainTitle from "../components/MainTitle";
+import Events from "../constants/Events";
 
 export default class HomeScreen extends React.Component {
     static navigationOptions = {
@@ -16,7 +17,7 @@ export default class HomeScreen extends React.Component {
 
 
                 <MainTitle title={"Evenements à venir"} />
-                <EventList/>
+                <EventList events={Events}/>
             </View>
         );
     }
