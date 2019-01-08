@@ -36,13 +36,13 @@ const styles = StyleSheet.create({
         resizeMode: 'contain'
     },
     text_container: {
-        flex: 1,
+        flex: 3,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center'
     },
     image_container: {
-        flex: 1,
+        flex: 2,
         paddingTop: 5
     }
 });

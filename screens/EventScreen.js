@@ -2,8 +2,10 @@ import React from 'react';
 import {StyleSheet, Text, View, ImageBackground, Image, FlatList} from 'react-native';
 import Colors from "../constants/Colors";
 import EventDataCard from "../components/EventDataCard";
-import Images from "../constants/Images";
+import Images, {getImageFromName} from "../constants/Images";
 import Users from "../constants/Users";
+import UserCard from "../components/UserCard";
+import {isoDateToUser, priceToUser} from "../helpers/UnitHelper";
 
 export default class EventScreen extends React.Component {
     static navigationOptions = {
@@ -20,7 +22,7 @@ export default class EventScreen extends React.Component {
                 <View style={styles.header_container}>
                     <ImageBackground source={Images.dinner} style={styles.main_image}>
                         <View style={styles.space}/>
-                        <Image source={Images.totoro} style={styles.organizer_icon}/>
+                        <Image source={getImageFromName(Users[event.organizer].photoId)} style={styles.organizer_icon}/>
                         <View style={styles.space}/>
                     </ImageBackground>
                 </View>
@@ -29,11 +31,11 @@ export default class EventScreen extends React.Component {
                     <Text style={styles.event_name}>{event.name}</Text>
                 </View>
                 <View style={styles.main_data_container}>
-                    <EventDataCard text={event.location} img={Images.robot}/>
+                    <EventDataCard text={event.location} img={Images.location}/>
                     <View style={styles.divider}/>
-                    <EventDataCard text={event.date} img={Images.robot}/>
+                    <EventDataCard text={isoDateToUser(event.date)} img={Images.date}/>
                     <View style={styles.divider}/>
-                    <EventDataCard text={event.price} img={Images.robot}/>
+                    <EventDataCard text={priceToUser(event.price)} img={Images.price}/>
                 </View>
                 <View style={styles.main_divider}/>
                 <View style={styles.description_container}>
@@ -46,7 +48,7 @@ export default class EventScreen extends React.Component {
                     <FlatList
                         data={this.findParticipants(event)}
                         keyExtractor={(item) => item.id+""}
-                        renderItem={({item}) => <Text>{item.name}</Text>}
+                        renderItem={({item}) => <UserCard user={item}/>}
                         horizontal={true}/>
                 </View>
             </View>
@@ -69,7 +71,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
     },
     header_container: {
-        flex: 3,
+        flex: 5,
     },
     main_image: {
         width: '100%',
@@ -86,18 +88,20 @@ const styles = StyleSheet.create({
         flex: 1
     },
     organizer_container: {
-        flex: 1,
+        flex: 2,
         justifyContent: "center",
         alignItems: "center"
     },
     organizer_name: {
-        color: Colors.CORAL
+        color: Colors.CORAL,
+        fontSize: 11
     },
     event_name: {
-        color: Colors.WHITE
+        color: Colors.WHITE,
+        fontSize: 16
     },
     main_data_container: {
-        flex: 2,
+        flex: 3,
         flexDirection: "row",
     },
     divider: {
@@ -110,20 +114,24 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.LIGHT_GREY
     },
     description_container: {
-        flex: 2,
-        margin: 10,
-        justifyContent: "space-around"
+        flex: 3,
+        marginHorizontal: 10,
+        marginVertical: 5,
+        justifyContent: "center"
     },
     description: {
         fontSize: 11,
         textAlign: "left",
-        color: Colors.WHITE
+        color: Colors.WHITE,
+        marginBottom: 5
     },
     title: {
-        color: Colors.WHITE
+        color: Colors.WHITE,
+        marginBottom: 5
     },
     participants_container: {
-        flex: 3,
-        margin: 10
+        flex: 5,
+        marginHorizontal: 10,
+        marginVertical: 5
     }
 });
