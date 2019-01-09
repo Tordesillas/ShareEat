@@ -5,11 +5,11 @@ import EventDataCard from "../components/EventDataCard";
 import Images, {getImageFromName} from "../constants/Images";
 import Users from "../constants/Users";
 import UserCard from "../components/UserCard";
-import {isoDateToUser, priceToUser} from "../helpers/UnitHelper";
+import {addDaysToIsoDate, isoDateToUser, priceToUser} from "../helpers/UnitHelper";
 
 export default class EventScreen extends React.Component {
     static navigationOptions = {
-        title: 'Événement',
+        title: 'Un dîner presque parfait',
         headerStyle: { backgroundColor: Colors.DARK_GREY },
         headerTitleStyle: { color: Colors.WHITE }
     };
@@ -48,7 +48,7 @@ export default class EventScreen extends React.Component {
                     <FlatList
                         data={this.findParticipants(event)}
                         keyExtractor={(item) => item.id+""}
-                        renderItem={({item}) => <UserCard user={item}/>}
+                        renderItem={({item}) => <UserCard user={item} date={addDaysToIsoDate(event.date, item.id)}/>}
                         horizontal={true}/>
                 </View>
             </View>
@@ -59,6 +59,9 @@ export default class EventScreen extends React.Component {
         let participants = [];
         for (const participantId of event.participants) {
             participants.push(Users[participantId]);
+        }
+        for (let i = event.participants.length; i < event.maxParticipantsNumber; i++) {
+            participants.push({id: i+1});
         }
         return participants;
     }

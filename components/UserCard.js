@@ -3,10 +3,14 @@ import { View, Text, StyleSheet, Image } from 'react-native';
 import Colors from "../constants/Colors";
 import {getImageFromName} from "../constants/Images";
 import RatingStars from "./RatingStars";
+import Images from "../constants/Images";
 
 export default class UserCard extends React.Component {
     render() {
         const user = this.props.user;
+        if (!user.name) {
+            return this.renderSignUpCard();
+        }
 
         return (
             <View style={styles.main_container}>
@@ -17,10 +21,27 @@ export default class UserCard extends React.Component {
                     <View style={styles.text_container}>
                         <Text style={styles.text}>{user.name}</Text>
                         <RatingStars rating={user.note}/>
+                        <Text style={styles.text}>{this.props.date}</Text>
                     </View>
                 </View>
             </View>
         )
+    }
+
+    renderSignUpCard() {
+         return (
+             <View style={styles.main_container}>
+                 <View style={styles.card}>
+                     <View style={styles.image_container}>
+                         <Image source={Images.plus_circled} style={styles.image}/>
+                     </View>
+                     <View style={styles.text_container}>
+                         <Text style={styles.text}>M'inscrire</Text>
+                         <Text style={styles.text}>{this.props.date}</Text>
+                     </View>
+                 </View>
+             </View>
+         );
     }
 }
 
@@ -52,13 +73,12 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
     },
     text_container: {
-        flex: 4,
+        flex: 6,
         alignItems: 'center',
         justifyContent: 'space-around',
     },
     text: {
         color: Colors.WHITE,
         fontSize: 11,
-        margin: 2
     }
 });

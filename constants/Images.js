@@ -15,6 +15,7 @@ export default {
     star: require('../assets/images/star.png'),
     empty_star: require('../assets/images/empty_star.png'),
     half_star: require('../assets/images/half_star.png'),
+    plus_circled: require('../assets/images/plus_circled.png'),
 };
 
 export function getImageFromName(name) {

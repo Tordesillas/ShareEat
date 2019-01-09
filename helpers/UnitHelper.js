@@ -14,3 +14,10 @@ export function priceToUser(price) {
     const newPrice = parseFloat(Math.round(price * 100) / 100).toFixed(2);
     return (newPrice+"").replace(".", ",") + " €";
 }
+
+export function addDaysToIsoDate(isoDate, days) {
+    const date = new Date(isoDate);
+    let month = date.getMonth() + 1;
+    if (month < 10) month = "0" + month;
+    return (date.getDate()+days) + "/" + month + "/" + date.getFullYear();
+}
