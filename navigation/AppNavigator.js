@@ -4,63 +4,91 @@ import { createStackNavigator, createBottomTabNavigator, createAppContainer } fr
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
 import SearchEventScreen from "../screens/SearchEventScreen";
 import EventScreen from "../screens/EventScreen";
+import Colors from "../constants/Colors";
+import NotImplementedScreen from "../screens/NotImplementedScreen";
+import ProfileScreen from "../screens/ProfileScreen";
+import EventTabView from "../screens/EventTabView";
 
 const HomeStack = createStackNavigator({
-  Home: HomeScreen
+    Home: HomeScreen,
+    Events: SearchEventScreen,
+    Event: EventScreen,
+    SearchEvent: SearchEventScreen,
+    NotImplemented: NotImplementedScreen,
+    EventTabView : EventTabView
 });
-
 HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
-  tabBarIcon: ({ focused }) => (
-      <TabBarIcon
-          focused={focused}
-          name={
-            Platform.OS === 'ios'
-                ? `ios-information-circle${focused ? '' : '-outline'}`
-                : 'md-information-circle'
-          }
-      />
-  ),
+    tabBarLabel: 'Accueil',
+    tabBarIcon: ({ focused }) => (
+        <TabBarIcon
+            focused={focused}
+            name={
+                Platform.OS === 'ios'
+                    ? `ios-information-circle${focused ? '' : '-outline'}`
+                    : 'md-information-circle'
+            }
+        />
+    ),
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+const ProfileStack = createStackNavigator({
+    Profile: ProfileScreen
 });
-
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
-  tabBarIcon: ({ focused }) => (
-      <TabBarIcon
-          focused={focused}
-          name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
-      />
-  ),
+ProfileStack.navigationOptions = {
+    tabBarLabel: 'Mon compte',
+    tabBarIcon: ({ focused }) => (
+        <TabBarIcon
+            focused={focused}
+            name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+        />
+    ),
 };
 
-const EventStack = createStackNavigator({
-  Events: SearchEventScreen,
-  Event: EventScreen
+const MyEventsStack = createStackNavigator({
+    NotImplemented: NotImplementedScreen
 });
-
-EventStack.navigationOptions = {
-  tabBarLabel: 'Event',
-  tabBarIcon: ({ focused }) => (
-      <TabBarIcon
-          focused={focused}
-          name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
-      />
-  ),
+MyEventsStack.navigationOptions = {
+    tabBarLabel: 'Mes événements',
+    tabBarIcon: ({ focused }) => (
+        <TabBarIcon
+            focused={focused}
+            name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+        />
+    ),
 };
 
-const MainStack = createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
-  EventStack,
+const SettingsStack = createStackNavigator({
+    NotImplemented: NotImplementedScreen
+});
+SettingsStack.navigationOptions = {
+    tabBarLabel: 'Paramètres',
+    tabBarIcon: ({ focused }) => (
+        <TabBarIcon
+            focused={focused}
+            name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+        />
+    ),
+};
+
+const TabNavigatorStack = createBottomTabNavigator({
+    HomeStack,
+    MyEventsStack,
+    ProfileStack,
+    SettingsStack
+}, {
+    tabBarOptions: {
+        activeTintColor: Colors.CORAL,
+        labelStyle: {
+            fontSize: 12,
+        },
+        style: {
+            backgroundColor: Colors.DARK_GREY,
+        },
+    }
 });
 
-const AppContainer = createAppContainer(MainStack);
+const AppContainer = createAppContainer(TabNavigatorStack);
 
 export default AppContainer;

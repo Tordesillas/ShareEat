@@ -1,34 +1,59 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import {SearchBar} from "react-native-elements";
+import {Button, SearchBar} from "react-native-elements";
 import Events from "../constants/Events";
 
 export default class SearchEventScreen extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            query : "",
+            meetic: [],
+            classic : []
+        }
+    }
     static navigationOptions = {
         title: 'SearchEvent',
     };
 
+
     render() {
         return (
             <View>
-                <Text>SearchEvent</Text>
                 <SearchBar
-                    onChangeText={(data) => SearchEventScreen.searchMethod(data)}
-                    placeholder='Type Here......' />
+                    onChangeText={this.handleSearch}
+                    placeholder='Type Here......'
+                />
+
+                <Button
+                    onPress={this.handleButton}
+                    title="Recherche"
+                    color="#841584"
+                />
             </View>
         );
     }
 
-    static searchMethod(data){
-        console.log(data + "\n");
+    handleButton = () =>{
+        console.log(this.state.query);
+        this.props.navigation.navigate('EventTabView',{
+            listClassic : this.state.classic,
+            listMeetic :this.state.meetic
+        });
+    };
+
+    handleSearch = (data) => {
         let events = Events;
-        let res = [];
+        let meetic = [];
+        let classic = [];
         for(let event of events){
             if(event.town.includes(data)){
-                res.push(event);
+                if(event.type === "meetic"){
+                    meetic.push(event);
+                }
+                else classic.push(event);
             }
         }
-        console.log(res);
-        return res;
+        this.setState({query: data, meetic: meetic, classic : classic});
     }
 }
