@@ -13,7 +13,6 @@ import EventTabView from "../screens/EventTabView";
 
 const HomeStack = createStackNavigator({
     Home: HomeScreen,
-    Events: SearchEventScreen,
     Event: EventScreen,
     SearchEvent: SearchEventScreen,
     NotImplemented: NotImplementedScreen,

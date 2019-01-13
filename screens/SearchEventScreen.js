@@ -47,7 +47,7 @@ export default class SearchEventScreen extends React.Component {
         let meetic = [];
         let classic = [];
         for(let event of events){
-            if(event.town.includes(data)){
+            if(data !== "" && event.town.includes(data)){
                 if(event.type === "meetic"){
                     meetic.push(event);
                 }

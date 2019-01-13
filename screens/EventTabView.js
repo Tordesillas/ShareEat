@@ -1,22 +1,22 @@
 import React from 'react';
 import {View, StyleSheet, Dimensions, Text } from 'react-native';
-import { TabView, SceneMap } from 'react-native-tab-view';
+import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import Colors from "../constants/Colors";
-import TabBar from "react-native-tab-view/src/TabBar";
+import EventList from "../components/EventList";
 
-const Classique = () => (
-    <View style={[styles.scene]}>
-        <Text>TEST</Text>
-    </View>
-);
-
-const Meetic = () => (
-    <View style={[styles.scene]} />
-);
 
 export default class EventTabView extends React.Component {
     constructor(props){
         super(props);
+        let params = props.navigation.state.params;
+        console.log(params);
+
+        let listMeetic = params.listMeetic;
+        let listClassic = params.listClassic;
+        this.state = {
+            meetic: listMeetic,
+            classic : listClassic
+        };
     }
 
     static navigationOptions = {
@@ -25,13 +25,25 @@ export default class EventTabView extends React.Component {
         headerTitleStyle: { color: Colors.WHITE }
     };
 
-    state = {
+    state1 = {
         index: 0,
         routes: [
             {key: 'classique', title: 'Classique'},
             {key: 'meetic', title: 'Meetic'},
         ],
     };
+
+    Classique = () => (
+        <View style={styles.scene}>
+            <EventList events={this.state.classic} />
+        </View>
+    );
+
+    Meetic = () => (
+        <View style={styles.scene}>
+            <EventList events={this.state.meetic} />
+        </View>
+    );
 
     _renderTabBar = props => {
         return (
@@ -44,16 +56,12 @@ export default class EventTabView extends React.Component {
     };
 
     render() {
-        const { navigation } = this.props;
-        let listMeetic = navigation.getParam('listMeetic');
-        let listClassic = navigation.getParam('listClassic');
-        console.log(listMeetic);
         return (
             <TabView
-                navigationState={this.state}
+                navigationState={this.state1}
                 renderScene={SceneMap({
-                    classique: Classique,
-                    meetic: Meetic,
+                    classique: this.Classique,
+                    meetic: this.Meetic,
                 })}
                 renderTabBar={this._renderTabBar}
                 onIndexChange={index => this.setState({index})}
