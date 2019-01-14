@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import Colors from "../constants/Colors";
 import EventList from "../components/EventList";
 import MainTitle from "../components/MainTitle";
@@ -7,26 +7,29 @@ import Events from "../constants/Events";
 
 export default class HomeScreen extends React.Component {
     static navigationOptions = {
-        title: 'Accueil',
-        headerStyle: { backgroundColor: Colors.DARK_GREY },
+        title: 'Share Eat',
+        headerStyle: { backgroundColor: Colors.DARK_MEDIUM_BLUE },
         headerTitleStyle: { color: Colors.WHITE }
     };
 
     render() {
         return (
             <View style={styles.main_container}>
-                <View style={styles.buttons}>
-                    <TouchableOpacity style={styles.button} onPress={() => {this.props.navigation.navigate("SearchEvent")}}>
-                        <Text style={styles.buttonText}>Rejoindre un repas communautaire</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={() => {this.props.navigation.navigate("NotImplemented")}}>
-                        <Text style={styles.buttonText}>Créer un repas communautaire</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.events}>
-                    <MainTitle title={"Evenements à venir"} />
-                    <EventList events={Events}/>
-                </View>
+                <ScrollView style={styles.container}>
+                    <View style={styles.dinnerContainer}>
+                        <TouchableOpacity style={styles.button} onPress={() => {this.props.navigation.navigate("NotImplemented")}}>
+                            <Text style={styles.buttonText}>Créer un repas</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.button} onPress={() => {this.props.navigation.navigate("SearchEvent")}}>
+                            <Text style={styles.buttonText}>Rejoindre un repas</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    <View style={styles.events}>
+                        <MainTitle title={"Evenement à venir"} />
+                        <EventList events={Events} screen={"home"}/>
+                    </View>
+                </ScrollView>
             </View>
         );
     }
@@ -35,26 +38,35 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
     main_container: {
         flex: 1,
-        margin: 15,
-        backgroundColor: Colors.GREY,
+        backgroundColor: Colors.DARK_BLUE,
         justifyContent: 'center',
         alignItems: "stretch",
         flexDirection: 'column',
     },
-    buttons: {
-        flex: 1,
+    container: {
+        padding: 15
+    },
+    dinnerContainer: {
         flexDirection: "column",
-        justifyContent: "space-around"
+        justifyContent: "flex-start",
+        marginBottom: 15
     },
     button: {
-        flex: 1,
         backgroundColor: Colors.CORAL,
-        margin: 20,
-        justifyContent: 'center',
+        marginTop: 15,
+        marginLeft: 30,
+        marginRight: 30,
+        justifyContent: "center",
         alignItems: "center",
+        paddingTop: 25,
+        paddingBottom: 25,
+        borderRadius: 5,
+        fontSize: 15,
     },
     buttonText: {
-        color: Colors.WHITE
+        color: Colors.WHITE,
+        textTransform: "uppercase",
+        fontWeight: "bold",
     },
     events: {
         flex: 1

@@ -45,7 +45,7 @@ ProfileStack.navigationOptions = {
 };
 
 const MyEventsStack = createStackNavigator({
-    NotImplemented: NotImplementedScreen
+    Events: EventScreen
 });
 MyEventsStack.navigationOptions = {
     tabBarLabel: 'Mes événements',
@@ -82,7 +82,7 @@ const TabNavigatorStack = createBottomTabNavigator({
             fontSize: 12,
         },
         style: {
-            backgroundColor: Colors.DARK_GREY,
+            backgroundColor: Colors.DARK_MEDIUM_BLUE,
         },
     }
 });
