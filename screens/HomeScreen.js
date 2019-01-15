@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
-import { StyleSheet, Text, View, TouchableOpacity, Button } from 'react-native';
 import Colors from "../constants/Colors";
 import EventList from "../components/EventList";
 import MainTitle from "../components/MainTitle";
@@ -8,7 +7,7 @@ import Events from "../constants/Events";
 
 export default class HomeScreen extends React.Component {
     static navigationOptions = {
-        title: 'Share Eat',
+        title: 'ShareEat',
         headerStyle: { backgroundColor: Colors.DARK_MEDIUM_BLUE },
         headerTitleStyle: { color: Colors.WHITE }
     };
@@ -27,7 +26,7 @@ export default class HomeScreen extends React.Component {
                     </View>
 
                     <View style={styles.events}>
-                        <MainTitle title={"Evenement à venir"} />
+                        <MainTitle title={"Événements à venir"} />
                         <EventList events={Events} screen={"home"} navigation={this.props.navigation}/>
                     </View>
                 </ScrollView>

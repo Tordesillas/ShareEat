@@ -12,7 +12,6 @@ import ProfileScreen from "../screens/ProfileScreen";
 
 const HomeStack = createStackNavigator({
     Home: HomeScreen,
-    Events: SearchEventScreen,
     Event: EventScreen,
     SearchEvent: SearchEventScreen,
     NotImplemented: NotImplementedScreen
@@ -45,7 +44,7 @@ ProfileStack.navigationOptions = {
 };
 
 const MyEventsStack = createStackNavigator({
-    Events: EventScreen
+    NotImplemented: NotImplementedScreen
 });
 MyEventsStack.navigationOptions = {
     tabBarLabel: 'Mes événements',

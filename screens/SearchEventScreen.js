@@ -1,6 +1,8 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import Colors from "../constants/Colors";
+import EventList from "../components/EventList";
+import Events from "../constants/Events";
 
 export default class SearchEventScreen extends React.Component {
     static navigationOptions = {
@@ -12,7 +14,7 @@ export default class SearchEventScreen extends React.Component {
     render() {
         return (
             <View style={styles.main_container}>
-                <Text>SearchEvent</Text>
+                <EventList events={Events} screen={"events"} navigation={this.props.navigation}/>
             </View>
         );
     }
@@ -21,6 +23,10 @@ export default class SearchEventScreen extends React.Component {
 const styles = StyleSheet.create({
     main_container: {
         flex: 1,
-        backgroundColor: Colors.GREY,
+        backgroundColor: Colors.DARK_BLUE,
+        justifyContent: 'center',
+        alignItems: "stretch",
+        flexDirection: 'column',
+        padding: 15
     }
 });

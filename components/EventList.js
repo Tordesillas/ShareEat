@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, FlatList, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import Colors from "../constants/Colors";
 import moment from "moment";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
@@ -14,10 +14,8 @@ export default class EventList extends React.Component {
 
         return (
             <View style={styles.main_container}>
-
                 <View style={styles.main_container}>
                     {
-
                         events.map((item) => {
                             const eventDate = new Date(item.date);
                             const formattedEventDate = moment()
@@ -27,7 +25,9 @@ export default class EventList extends React.Component {
                                 .format("dddd D MMMM YYYY");
 
                             return (
-                                <TouchableOpacity style={styles.flatListRow} key={item.id} onPress={() => {this.props.navigation.navigate("NotImplemented")}}>
+                                <TouchableOpacity style={styles.flatListRow} key={item.id} onPress={() => {
+                                    this.props.navigation.navigate("Event", { event: item })
+                                }}>
                                     <View style={styles.eventDetails}>
                                         <View>
                                             <Image
@@ -62,16 +62,11 @@ export default class EventList extends React.Component {
     }
 
     retrieveEvents() {
-        let events = [];
-        const currentDate = new Date();
-
         if (this.props.screen === "home") {
-            events.push(this.props.events[0]);
+            return [this.props.events[0], this.props.events[1]];
         } else {
-            events = this.props.events;
+            return this.props.events;
         }
-
-        return events;
     }
 }
 
