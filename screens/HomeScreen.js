@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Button } from 'react-native';
 import Colors from "../constants/Colors";
 import EventList from "../components/EventList";
 import MainTitle from "../components/MainTitle";
