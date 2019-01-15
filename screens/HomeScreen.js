@@ -27,7 +27,7 @@ export default class HomeScreen extends React.Component {
 
                     <View style={styles.events}>
                         <MainTitle title={"Evenement à venir"} />
-                        <EventList events={Events} screen={"home"}/>
+                        <EventList events={Events} screen={"home"} navigation={this.props.navigation}/>
                     </View>
                 </ScrollView>
             </View>

@@ -52,8 +52,6 @@ export default class EventList extends React.Component {
                                             </View>
                                         </View>
                                     </View>
-
-                                    <Text style={styles.eventDescription} numberOfLines={2}>{item.description}</Text>
                                 </TouchableOpacity>
                             );
                         })
@@ -93,7 +91,8 @@ const styles = StyleSheet.create({
     flatListLabel: {
         color: Colors.CORAL,
         fontWeight: "bold",
-        fontSize: 15
+        fontSize: 16,
+        marginBottom: 5,
     },
     flatListItem: {
         color: Colors.WHITE
@@ -105,12 +104,13 @@ const styles = StyleSheet.create({
     },
     eventDetail: {
         flexDirection: 'row',
+        marginBottom: 5,
     },
     eventImage: {
-        marginRight: 10,
+        marginRight: 15,
         borderRadius: 100,
-        width: 30,
-        height: 30
+        width: 50,
+        height: 50
     },
     eventDescription: {
         color: Colors.WHITE
