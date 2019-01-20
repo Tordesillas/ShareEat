@@ -26,26 +26,7 @@ export default class SearchEventScreen extends React.Component {
   };
 
   render() {
-    let events = this.state.events.filter(event => {
-      if (event.type === "meetic" && this.state.checkedMeetic) return true;
-      if (event.type === "classic" && this.state.checkedClassic) return true;
-      return false;
-    });
-
-    events = events.filter(event => {
-      if (
-        this.state.prices[0] <= event.price &&
-        event.price <= this.state.prices[1]
-      )
-        return true;
-      return false;
-    });
-
-    events = events.filter(event => {
-      let date = event.date.split("T")[0];
-      if (this.state.dateFrom < date && date < this.state.dateTo) return true;
-      return false;
-    });
+    let events = this.filterEvent();
     return (
       <View style={styles.main}>
         <SearchBar
@@ -139,28 +120,63 @@ export default class SearchEventScreen extends React.Component {
           }}
           onDateChange={date => {
             this.setState({ dateTo: date });
-          }}
-        />
+          }}/>
         <EventList events={events} />
+          <Button
+              onPress={this.handleButton}
+              title="Recherche"
+              color="#841584"
+          />
       </View>
     );
   }
 
-  handleButton = () => {
-    console.log(this.state.query);
-    this.props.navigation.navigate("EventTabView", {
-      listClassic: this.state.classic,
-      listMeetic: this.state.meetic
-    });
+    filterEvent(){
+        let events = this.state.events.filter(event => {
+            if (event.type === "meetic" && this.state.checkedMeetic) return true;
+            if (event.type === "classic" && this.state.checkedClassic) return true;
+            return false;
+        });
+
+        events = events.filter(event => {
+            if(
+                this.state.prices[0] <= event.price &&
+                event.price <= this.state.prices[1]
+            )
+                return true;
+            return false;
+        });
+
+        events = events.filter(event => {
+            let date = event.date.split("T")[0];
+            if (this.state.dateFrom < date && date < this.state.dateTo) return true;
+            return false;
+        });
+
+        return events;
+    }
+
+    handleButton = () => {
+        let events = this.filterEvent();
+        let meetic = [];
+        let classic = [];
+        for (let event of events) {
+            if (event.type === "meetic")
+                meetic.push(event);
+            else if (this.state.checkedClassic)
+                classic.push(event);
+        }
+
+        console.log("BOUTON PRESSE");
+        console.log(this.state.query);
+        this.props.navigation.navigate("EventTabView", {
+          listClassic: classic,
+          listMeetic: meetic
+        });
   };
 
   handleSearch = data => {
-    let events = Events;
-    events = events.filter(event => {
-      if (event.type === "meetic" && this.state.checkedMeetic) return true;
-      if (event.type === "classic" && this.state.checkedClassic) return true;
-      return false;
-    });
+    let events = this.filterEvent();
     let eventsToReturn = [];
     let meetic = [];
     let classic = [];
@@ -172,6 +188,7 @@ export default class SearchEventScreen extends React.Component {
         eventsToReturn.push(event);
       }
     }
+
     if (data === "") eventsToReturn = events;
     this.setState({
       query: data,
