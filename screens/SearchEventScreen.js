@@ -2,9 +2,9 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Button, SearchBar, CheckBox, Text } from "react-native-elements";
 import Events from "../constants/Events";
-import EventList from "../components/EventList";
 import MultiSlider from "@ptomasroos/react-native-multi-slider";
 import DatePicker from "react-native-datepicker";
+import Colors from "../constants/Colors";
 
 export default class SearchEventScreen extends React.Component {
   constructor(props) {
@@ -22,7 +22,9 @@ export default class SearchEventScreen extends React.Component {
     };
   }
   static navigationOptions = {
-    title: "SearchEvent"
+      title: "SearchEvent",
+      headerStyle: { backgroundColor: Colors.DARK_GREY },
+      headerTitleStyle: { color: Colors.WHITE }
   };
 
   render() {
@@ -53,7 +55,7 @@ export default class SearchEventScreen extends React.Component {
             }
           />
         </View>
-        <Text>
+        <Text style={styles.text}>
           {"price from " +
             this.state.prices[0] +
             "$ to " +
@@ -69,9 +71,10 @@ export default class SearchEventScreen extends React.Component {
           min={0}
           max={20}
           step={1}
+          style={styles.margins}
         />
         <DatePicker
-          style={{ width: 200 }}
+            style={styles.datePicker}
           date={this.state.dateFrom}
           mode="date"
           placeholder="select date"
@@ -97,7 +100,7 @@ export default class SearchEventScreen extends React.Component {
           }}
         />
         <DatePicker
-          style={{ width: 200 }}
+          style={styles.datePicker}
           date={this.state.dateTo}
           mode="date"
           placeholder="select date"
@@ -121,11 +124,10 @@ export default class SearchEventScreen extends React.Component {
           onDateChange={date => {
             this.setState({ dateTo: date });
           }}/>
-        <EventList events={events} />
           <Button
               onPress={this.handleButton}
               title="Recherche"
-              color="#841584"
+              backgroundColor="#ed534b"
           />
       </View>
     );
@@ -139,10 +141,7 @@ export default class SearchEventScreen extends React.Component {
         });
 
         events = events.filter(event => {
-            if(
-                this.state.prices[0] <= event.price &&
-                event.price <= this.state.prices[1]
-            )
+            if(this.state.prices[0] <= event.price && event.price <= this.state.prices[1])
                 return true;
             return false;
         });
@@ -201,5 +200,23 @@ export default class SearchEventScreen extends React.Component {
 
 const styles = StyleSheet.create({
   checkboxs: {},
-  main: {}
+      main: {
+          backgroundColor: Colors.GREY,
+          color: Colors.WHITE,
+          flex: 1,
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+      },
+    text:{
+        color: Colors.WHITE,
+        marginLeft: 15
+    },
+    margins:{
+      marginLeft: 15
+    },
+    datePicker:{
+        marginLeft: 15,
+        width: 200,
+        justifyContent: 'center',
+    }
 });
