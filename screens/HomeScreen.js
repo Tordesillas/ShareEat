@@ -1,9 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Button } from 'react-native';
 import Colors from "../constants/Colors";
-import EventList from "../components/EventList";
-import MainTitle from "../components/MainTitle";
-import Events from "../constants/Events";
 
 export default class HomeScreen extends React.Component {
     static navigationOptions = {
@@ -24,8 +21,7 @@ export default class HomeScreen extends React.Component {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.events}>
-                    <MainTitle title={"Evenements à venir"} />
-                    <EventList events={Events}/>
+                    <Text>Mes événements</Text>
                 </View>
             </View>
         );
@@ -35,7 +31,6 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
     main_container: {
         flex: 1,
-        margin: 15,
         backgroundColor: Colors.GREY,
         justifyContent: 'center',
         alignItems: "stretch",
