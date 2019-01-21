@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Colors from "../constants/Colors";
 import {getImageFromName} from "../constants/Images";
 import RatingStars from "./RatingStars";
@@ -13,7 +13,8 @@ export default class UserCard extends React.Component {
         }
 
         return (
-            <View style={styles.main_container}>
+            <TouchableOpacity style={styles.main_container} onPress={() => this.props.navigation.navigate("Profile",
+                {profile: user})}>
                 <View style={styles.card}>
                     <View style={styles.image_container}>
                         <Image source={getImageFromName(user.photoId)} style={styles.image}/>
@@ -24,7 +25,7 @@ export default class UserCard extends React.Component {
                         <Text style={styles.text}>{this.props.date}</Text>
                     </View>
                 </View>
-            </View>
+            </TouchableOpacity>
         )
     }
 

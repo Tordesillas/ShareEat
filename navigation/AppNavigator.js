@@ -16,6 +16,7 @@ const HomeStack = createStackNavigator({
     Event: EventScreen,
     SearchEvent: SearchEventScreen,
     NotImplemented: NotImplementedScreen,
+    Profile: ProfileScreen,
     EventTabView : EventTabView
 });
 HomeStack.navigationOptions = {
@@ -33,7 +34,7 @@ HomeStack.navigationOptions = {
 };
 
 const ProfileStack = createStackNavigator({
-    Profile: ProfileScreen
+    NotImplemented: NotImplementedScreen,
 });
 ProfileStack.navigationOptions = {
     tabBarLabel: 'Mon compte',

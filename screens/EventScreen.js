@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View, ImageBackground, Image, FlatList} from 'react-native';
+import {StyleSheet, Text, View, ImageBackground, Image, FlatList, TouchableOpacity} from 'react-native';
 import Colors from "../constants/Colors";
 import EventDataCard from "../components/EventDataCard";
 import Images, {getImageFromName} from "../constants/Images";
@@ -21,9 +21,12 @@ export default class EventScreen extends React.Component {
             <View style={styles.main_container}>
                 <View style={styles.header_container}>
                     <ImageBackground source={Images.dinner} style={styles.main_image}>
-                        <View style={styles.space}/>
-                        <Image source={getImageFromName(Users[event.organizer].photoId)} style={styles.organizer_icon}/>
-                        <View style={styles.space}/>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate("Profile",
+                            {profile: Users[event.organizer]})}>
+                            <View style={styles.space}/>
+                            <Image source={getImageFromName(Users[event.organizer].photoId)} style={styles.organizer_icon}/>
+                            <View style={styles.space}/>
+                        </TouchableOpacity>
                     </ImageBackground>
                 </View>
                 <View style={styles.organizer_container}>
@@ -48,7 +51,8 @@ export default class EventScreen extends React.Component {
                     <FlatList
                         data={this.findParticipants(event)}
                         keyExtractor={(item) => item.id+""}
-                        renderItem={({item}) => <UserCard user={item} date={addDaysToIsoDate(event.date, item.id)}/>}
+                        renderItem={({item}) =>
+                            <UserCard user={item} date={addDaysToIsoDate(event.date, item.id)} navigation={this.props.navigation}/>}
                         horizontal={true}/>
                 </View>
             </View>
