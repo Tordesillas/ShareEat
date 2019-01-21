@@ -16,8 +16,9 @@ export default {
     empty_star: require('../assets/images/empty_star.png'),
     half_star: require('../assets/images/half_star.png'),
     plus_circled: require('../assets/images/plus_circled.png'),
-    landscape: require('../assets/images/landscape.png'),
     cooking: require('../assets/images/cooking.jpg'),
+    left_quote: require('../assets/images/left_quote.png'),
+    right_quote: require('../assets/images/right_quote.png'),
 };
 
 export function getImageFromName(name) {
