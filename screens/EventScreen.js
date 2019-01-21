@@ -1,11 +1,12 @@
 import React from 'react';
-import {StyleSheet, Text, View, ImageBackground, Image, FlatList} from 'react-native';
+import {StyleSheet, Text, View, ImageBackground, Image, FlatList, TouchableHighlight} from 'react-native';
 import Colors from "../constants/Colors";
 import EventDataCard from "../components/EventDataCard";
 import Images, {getImageFromName} from "../constants/Images";
 import Users from "../constants/Users";
 import UserCard from "../components/UserCard";
 import {addDaysToIsoDate, isoDateToUser, priceToUser} from "../helpers/UnitHelper";
+import Events from "../constants/Events";
 
 export default class EventScreen extends React.Component {
     static navigationOptions = {
@@ -22,7 +23,12 @@ export default class EventScreen extends React.Component {
                 <View style={styles.header_container}>
                     <ImageBackground source={Images.dinner} style={styles.main_image}>
                         <View style={styles.space}/>
-                        <Image source={getImageFromName(Users[event.organizer].photoId)} style={styles.organizer_icon}/>
+                        <TouchableHighlight
+                            onPress={(item) => this.props.navigation.navigate("UsersProfile",
+                                {profile: Users[0]})}>
+                            <Image source={getImageFromName(Users[event.organizer].photoId)} style={styles.organizer_icon} />
+                        </TouchableHighlight>
+                        <Image source={getImageFromName(Users[event.organizer].photoId)} style={styles.organizer_icon} />
                         <View style={styles.space}/>
                     </ImageBackground>
                 </View>
@@ -48,7 +54,13 @@ export default class EventScreen extends React.Component {
                     <FlatList
                         data={this.findParticipants(event)}
                         keyExtractor={(item) => item.id+""}
-                        renderItem={({item}) => <UserCard user={item} date={addDaysToIsoDate(event.date, item.id)}/>}
+                        renderItem={({item}) => (
+                            <TouchableHighlight
+                                onPress={(item) => this.props.navigation.navigate("UsersProfile",
+                                    {profile: Users[0]})}>
+                                <UserCard user={item} date={addDaysToIsoDate(event.date, item.id)} />
+                            </TouchableHighlight>
+                            )}
                         horizontal={true}/>
                 </View>
             </View>

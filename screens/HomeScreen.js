@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Button } from 'react-native';
 import Colors from "../constants/Colors";
+import EventList from "../components/EventList";
+import Events from "../constants/Events";
 
 export default class HomeScreen extends React.Component {
     static navigationOptions = {
@@ -22,6 +24,10 @@ export default class HomeScreen extends React.Component {
                 </View>
                 <View style={styles.events}>
                     <Text>Mes événements</Text>
+                    <EventList events={null}/>
+                    <Button title={"TEST"} onPress={() => this.props.navigation.navigate("Event", {
+                        event: Events[0]
+                    })}/>
                 </View>
             </View>
         );

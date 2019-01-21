@@ -6,6 +6,7 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import SearchEventScreen from "../screens/SearchEventScreen";
 import EventScreen from "../screens/EventScreen";
+import UsersProfileScreen from "../screens/UsersProfileScreen";
 import Colors from "../constants/Colors";
 import NotImplementedScreen from "../screens/NotImplementedScreen";
 import ProfileScreen from "../screens/ProfileScreen";
@@ -15,6 +16,7 @@ const HomeStack = createStackNavigator({
     Events: SearchEventScreen,
     Event: EventScreen,
     SearchEvent: SearchEventScreen,
+    UsersProfile: UsersProfileScreen,
     NotImplemented: NotImplementedScreen
 });
 HomeStack.navigationOptions = {
