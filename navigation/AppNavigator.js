@@ -9,12 +9,14 @@ import EventScreen from "../screens/EventScreen";
 import Colors from "../constants/Colors";
 import NotImplementedScreen from "../screens/NotImplementedScreen";
 import ProfileScreen from "../screens/ProfileScreen";
+import EventTabView from "../screens/EventTabView";
 
 const HomeStack = createStackNavigator({
     Home: HomeScreen,
     Event: EventScreen,
     SearchEvent: SearchEventScreen,
-    NotImplemented: NotImplementedScreen
+    NotImplemented: NotImplementedScreen,
+    EventTabView : EventTabView
 });
 HomeStack.navigationOptions = {
     tabBarLabel: 'Accueil',
