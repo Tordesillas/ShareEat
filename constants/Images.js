@@ -19,6 +19,7 @@ export default {
     cooking: require('../assets/images/cooking.jpg'),
     left_quote: require('../assets/images/left_quote.png'),
     right_quote: require('../assets/images/right_quote.png'),
+    edit: require('../assets/images/edit.png'),
 };
 
 export function getImageFromName(name) {

@@ -1,14 +1,14 @@
 import React from 'react';
-import {StyleSheet, Text, View, ImageBackground, Image, FlatList} from 'react-native';
+import {StyleSheet, Text, View, ImageBackground, Image, FlatList, TouchableOpacity} from 'react-native';
 import Colors from "../constants/Colors";
 import Images, {getImageFromName} from "../constants/Images";
 import RatingStars from "../components/RatingStars";
+import UserMark from "../components/UserMark";
 import Users from "../constants/Users";
-import UserCard from "../components/UserCard";
 
 export default class ProfileScreen extends React.Component {
     static navigationOptions = {
-        title: 'Profil de Gertrude',
+        title: 'Profil',
         headerStyle: { backgroundColor: Colors.DARK_GREY },
         headerTitleStyle: { color: Colors.WHITE }
     };
@@ -20,9 +20,16 @@ export default class ProfileScreen extends React.Component {
             <View style={styles.main_container}>
                 <View style={styles.header_container}>
                     <ImageBackground source={Images.cooking} style={styles.main_image}>
-                        <View style={styles.space}/>
-                        <Image source={getImageFromName(Users[profile.id].photoId)} style={styles.user_icon}/>
-                        <View style={styles.space}/>
+                        <View style={{flex: 1}}>
+                            <View style={styles.space}/>
+                            <Image source={getImageFromName(profile.photoId)} style={styles.user_icon}/>
+                            <View style={styles.space}/>
+                        </View>
+                        <View style={styles.header_text}>
+                            <Text style={styles.name_text}>{profile.name}</Text>
+                            <Text style={styles.age_text}>{profile.age} ans</Text>
+                            <Text style={styles.age_text}>42 Route des Mimosas, Nice</Text>
+                        </View>
                     </ImageBackground>
                 </View>
 
@@ -40,28 +47,34 @@ export default class ProfileScreen extends React.Component {
 
                 <View style={styles.main_divider}/>
                 <View style={styles.rating_stars}>
-                    <RatingStars rating={profile.note}/>
+                    <View style={{flex: 2, alignItems: "center", justifyContent: "center", paddingHorizontal: 25}}>
+                        <RatingStars rating={profile.note}/>
+                    </View>
+                    <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
+                        <Text style={styles.age_text}>sur {profile.marks.length} avis</Text>
+                    </View>
+                    <View style={{flex: 1, alignItems: "center", justifyContent: "center", padding: 10}}>
+                        <TouchableOpacity
+                            style={{alignItems:'center', justifyContent:'center', backgroundColor: Colors.CORAL, width: 50, height: 50,
+                                borderRadius: 50,
+                            }}>
+                            <Image source={Images.edit} style={styles.edit_icon}/>
+                        </TouchableOpacity>
+                    </View>
+
                 </View>
                 <View style={styles.main_divider}/>
 
                 <View style={styles.comments_container}>
-                    <Text style={styles.title}>Avis</Text>
+                    <Text style={styles.title}>Avis ({profile.marks.length})</Text>
                     <FlatList
-                        data={this.findmetPeople(profile)}
-                        keyExtractor={(item) => item.id+""}
-                        renderItem={({item}) => <UserCard user={item}/>}
+                        data={profile.marks}
+                        keyExtractor={(item) => item[0]+""}
+                        renderItem={({item}) => <UserMark user={Users[item[0]]} mark={item[1]} navigation={this.props.navigation}/>}
                         horizontal={true}/>
                 </View>
             </View>
         );
-    }
-
-    findmetPeople(profile) {
-        let metPeople = [];
-        for (const metPeopleTab of profile.metPeople) {
-            metPeople.push(Users[metPeopleTab[0]]);
-        }
-        return metPeople;
     }
 }
 
@@ -72,11 +85,12 @@ const styles = StyleSheet.create({
         flexDirection: "column",
     },
     header_container: {
-        flex: 2,
+        flex: 6,
     },
     main_image: {
         height: '100%',
-        paddingLeft: 10
+        paddingLeft: 10,
+        flexDirection: "row"
     },
     user_icon: {
         flex: 5,
@@ -86,14 +100,27 @@ const styles = StyleSheet.create({
     space: {
         flex: 1
     },
+    header_text: {
+        flex: 3,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    name_text: {
+        fontSize: 28,
+        color: Colors.WHITE
+    },
+    age_text: {
+        fontSize: 12,
+        color: Colors.WHITE
+    },
     biography_container: {
-        flex: 2,
+        flex: 6,
         flexDirection: "row",
         margin: 5
     },
     biography: {
         flex: 8,
-        fontSize: 11,
+        fontSize: 12,
         color: Colors.WHITE
     },
     quote: {
@@ -106,15 +133,22 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.LIGHT_GREY
     },
     rating_stars: {
-        flex: 1
+        flex: 3,
+        flexDirection: "row"
     },
     comments_container: {
-        flex: 4,
-        justifyContent: "center",
-        alignItems: "center"
+        flex: 8,
+        marginHorizontal: 10,
+        marginVertical: 5
     },
     title: {
         color: Colors.WHITE,
         marginBottom: 5
-    }
+    },
+    edit_icon: {
+        height: 25,
+        width: 25,
+        aspectRatio: 1,
+        resizeMode: 'contain',
+    },
 });
