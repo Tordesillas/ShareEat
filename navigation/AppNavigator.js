@@ -33,6 +33,19 @@ HomeStack.navigationOptions = {
     ),
 };
 
+const MyEventsStack = createStackNavigator({
+    NotImplemented: NotImplementedScreen
+});
+MyEventsStack.navigationOptions = {
+    tabBarLabel: 'Mes repas',
+    tabBarIcon: ({ focused }) => (
+        <TabBarIcon
+            focused={focused}
+            name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+        />
+    ),
+};
+
 const ProfileStack = createStackNavigator({
     NotImplemented: NotImplementedScreen,
 });
@@ -46,11 +59,11 @@ ProfileStack.navigationOptions = {
     ),
 };
 
-const MyEventsStack = createStackNavigator({
-    NotImplemented: NotImplementedScreen
+const MessagingStack = createStackNavigator({
+    NotImplemented: NotImplementedScreen,
 });
-MyEventsStack.navigationOptions = {
-    tabBarLabel: 'Mes événements',
+MessagingStack.navigationOptions = {
+    tabBarLabel: 'Messagerie',
     tabBarIcon: ({ focused }) => (
         <TabBarIcon
             focused={focused}
@@ -75,6 +88,7 @@ SettingsStack.navigationOptions = {
 const TabNavigatorStack = createBottomTabNavigator({
     HomeStack,
     MyEventsStack,
+    MessagingStack,
     ProfileStack,
     SettingsStack
 }, {
