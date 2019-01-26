@@ -1,16 +1,21 @@
 import React from 'react';
-import {StyleSheet, Text, View, ImageBackground, Image, FlatList, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, ImageBackground, Image, FlatList, TouchableOpacity, Modal} from 'react-native';
 import Colors from "../constants/Colors";
 import Images, {getImageFromName} from "../constants/Images";
 import RatingStars from "../components/RatingStars";
 import UserMark from "../components/UserMark";
 import Users from "../constants/Users";
+import {Button} from "react-native-elements";
 
 export default class ProfileScreen extends React.Component {
     static navigationOptions = {
         title: 'Profil',
         headerStyle: { backgroundColor: Colors.DARK_GREY },
         headerTitleStyle: { color: Colors.WHITE }
+    };
+
+    state = {
+        modalVisible: false,
     };
 
     render() {
@@ -57,7 +62,7 @@ export default class ProfileScreen extends React.Component {
                         <TouchableOpacity
                             style={{alignItems:'center', justifyContent:'center', backgroundColor: Colors.CORAL, width: 50, height: 50,
                                 borderRadius: 50,
-                            }}>
+                            }} onPress={() => this.setState({modalVisible: true})}>
                             <Image source={Images.edit} style={styles.edit_icon}/>
                         </TouchableOpacity>
                     </View>
@@ -73,7 +78,25 @@ export default class ProfileScreen extends React.Component {
                         renderItem={({item}) => <UserMark user={Users[item[0]]} mark={item[1]} navigation={this.props.navigation}/>}
                         horizontal={true}/>
                 </View>
+                {this.addModal(profile)}
             </View>
+        );
+    }
+
+    addModal(profile) {
+        return (
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={this.state.modalVisible}
+                onRequestClose={() => {}}>
+                <View style={styles.modalContent}>
+                    <Text>Vote pour {profile.name}</Text>
+
+                    <Button title={"Annuler"} onPress={() => {this.setState({modalVisible: false})}}/>
+                </View>
+            </Modal>
+
         );
     }
 }
@@ -151,4 +174,15 @@ const styles = StyleSheet.create({
         aspectRatio: 1,
         resizeMode: 'contain',
     },
+    modalContent: {
+        flex: 1,
+        backgroundColor: "white",
+        padding: 22,
+        marginHorizontal: 50,
+        marginVertical: 100,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 4,
+        borderColor: "rgba(0, 0, 0, 0.1)"
+    }
 });
