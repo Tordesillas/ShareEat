@@ -10,7 +10,7 @@ import {addDaysToIsoDate, isoDateToUser, priceToUser} from "../helpers/UnitHelpe
 export default class EventScreen extends React.Component {
     static navigationOptions = {
         title: 'Un dîner presque parfait',
-        headerStyle: { backgroundColor: Colors.DARK_GREY },
+        headerStyle: { backgroundColor: Colors.DARK_BLUE },
         headerTitleStyle: { color: Colors.WHITE }
     };
 
@@ -97,7 +97,7 @@ export default class EventScreen extends React.Component {
 const styles = StyleSheet.create({
     main_container: {
         flex: 1,
-        backgroundColor: Colors.GREY,
+        backgroundColor: Colors.DARK_MEDIUM_BLUE,
         flexDirection: "column",
     },
     header_container: {
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     },
     main_divider: {
         height: 5,
-        backgroundColor: Colors.LIGHT_GREY
+        backgroundColor: Colors.LIGHT_BLUE
     },
     description_container: {
         flex: 3,

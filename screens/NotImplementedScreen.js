@@ -5,7 +5,7 @@ import Colors from "../constants/Colors";
 export default class NotImplementedScreen extends React.Component {
     static navigationOptions = {
         title: 'ShareEat',
-        headerStyle: { backgroundColor: Colors.DARK_GREY },
+        headerStyle: { backgroundColor: Colors.DARK_BLUE },
         headerTitleStyle: { color: Colors.WHITE }
     };
 
@@ -21,6 +21,6 @@ export default class NotImplementedScreen extends React.Component {
 const styles = StyleSheet.create({
     main_container: {
         flex: 1,
-        backgroundColor: Colors.GREY,
+        backgroundColor: Colors.DARK_MEDIUM_BLUE,
     }
 });

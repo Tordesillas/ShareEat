@@ -44,8 +44,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderWidth: 1,
         borderRadius: 3,
-        borderColor: Colors.LIGHT_GREY,
-        backgroundColor: Colors.DARK_GREY,
+        borderColor: Colors.LIGHT_BLUE,
+        backgroundColor: Colors.DARK_BLUE,
         width: 200,
         padding: 5
     },

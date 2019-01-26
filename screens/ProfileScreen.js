@@ -10,7 +10,7 @@ import {Button} from "react-native-elements";
 export default class ProfileScreen extends React.Component {
     static navigationOptions = {
         title: 'Profil',
-        headerStyle: { backgroundColor: Colors.DARK_GREY },
+        headerStyle: { backgroundColor: Colors.DARK_BLUE },
         headerTitleStyle: { color: Colors.WHITE }
     };
 
@@ -59,10 +59,8 @@ export default class ProfileScreen extends React.Component {
                         <Text style={styles.age_text}>sur {profile.marks.length} avis</Text>
                     </View>
                     <View style={{flex: 1, alignItems: "center", justifyContent: "center", padding: 10}}>
-                        <TouchableOpacity
-                            style={{alignItems:'center', justifyContent:'center', backgroundColor: Colors.CORAL, width: 50, height: 50,
-                                borderRadius: 50,
-                            }} onPress={() => this.setState({modalVisible: true})}>
+                        <TouchableOpacity style={styles.edit_button}
+                                          onPress={() => this.setState({modalVisible: true})}>
                             <Image source={Images.edit} style={styles.edit_icon}/>
                         </TouchableOpacity>
                     </View>
@@ -104,7 +102,7 @@ export default class ProfileScreen extends React.Component {
 const styles = StyleSheet.create({
     main_container: {
         flex: 1,
-        backgroundColor: Colors.GREY,
+        backgroundColor: Colors.DARK_MEDIUM_BLUE,
         flexDirection: "column",
     },
     header_container: {
@@ -153,7 +151,7 @@ const styles = StyleSheet.create({
     },
     main_divider: {
         height: 5,
-        backgroundColor: Colors.LIGHT_GREY
+        backgroundColor: Colors.LIGHT_BLUE
     },
     rating_stars: {
         flex: 3,
@@ -168,9 +166,17 @@ const styles = StyleSheet.create({
         color: Colors.WHITE,
         marginBottom: 5
     },
+    edit_button: {
+        alignItems:'center',
+        justifyContent:'center',
+        backgroundColor: Colors.DARK_BLUE,
+        width: 40,
+        height: 40,
+        borderRadius: 40
+    },
     edit_icon: {
-        height: 25,
-        width: 25,
+        height: 20,
+        width: 20,
         aspectRatio: 1,
         resizeMode: 'contain',
     },
