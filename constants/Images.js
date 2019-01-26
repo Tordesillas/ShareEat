@@ -1,6 +1,7 @@
 const people0 = require('../assets/images/people0.png');
 const people1 = require('../assets/images/people1.png');
 const people2 = require('../assets/images/people2.png');
+const people3 = require('../assets/images/people3.png');
 const totoro = require('../assets/images/totoro.png');
 
 export default {
@@ -9,6 +10,7 @@ export default {
     dinner: require('../assets/images/dinner.jpg'),
     people1: people1,
     people2: people2,
+    people3: people3,
     location: require('../assets/images/location.png'),
     date: require('../assets/images/date.png'),
     price: require('../assets/images/price.png'),
@@ -27,6 +29,7 @@ export function getImageFromName(name) {
         case "people0": return people0;
         case "people1": return people1;
         case "people2": return people2;
-        default: totoro;
+        case "people3": return people3;
+        default: return totoro;
     }
 }

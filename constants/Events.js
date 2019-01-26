@@ -2,7 +2,7 @@ export default [
     {
         id: 0,
         name: "Le monde merveilleux de Totoro",
-        price: 5.10,
+        price: 0,
         town: "Nice",
         type: "meetic",
         date: "2019-06-15T00:05:32.000Z",
@@ -10,12 +10,13 @@ export default [
         location: "36 Rue des maisons roses, 06410 Biot",
         organizer: 0,
         participants: [1, 2],
-        maxParticipantsNumber: 5
+        maxParticipantsNumber: 5,
+        enrolled: -1
     },
     {
         id: 1,
         name: "Repas 2",
-        price: 12.50,
+        price: 0,
         town: "Paris",
         type: "classic",
         date: "2019-08-15T00:05:32.000Z",
@@ -23,7 +24,8 @@ export default [
         location: "36 Rue des maisons roses, 06410 Biot",
         organizer: 0,
         participants: [],
-        maxParticipantsNumber: 4
+        maxParticipantsNumber: 4,
+        enrolled: -1
     },
     {
         id: 2,
@@ -36,6 +38,7 @@ export default [
         location: "36 Rue des maisons roses, 06410 Biot",
         organizer: 1,
         participants: [],
-        maxParticipantsNumber: 8
+        maxParticipantsNumber: 8,
+        enrolled: -1
     }
 ];

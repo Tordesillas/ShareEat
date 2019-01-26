@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native';
 import Colors from "../constants/Colors";
 import {getImageFromName} from "../constants/Images";
 import RatingStars from "./RatingStars";
@@ -10,6 +10,9 @@ export default class UserCard extends React.Component {
         const user = this.props.user;
         if (!user.name) {
             return this.renderSignUpCard();
+        }
+        if (user.name === "Moi") {
+            return this.renderMeCard(user)
         }
 
         return (
@@ -31,7 +34,7 @@ export default class UserCard extends React.Component {
 
     renderSignUpCard() {
          return (
-             <View style={styles.main_container}>
+             <TouchableOpacity style={styles.main_container} onPress={() => {this.launchPopUp()}}>
                  <View style={styles.card}>
                      <View style={styles.image_container}>
                          <Image source={Images.plus_circled} style={styles.image}/>
@@ -41,8 +44,34 @@ export default class UserCard extends React.Component {
                          <Text style={styles.text}>{this.props.date}</Text>
                      </View>
                  </View>
-             </View>
+             </TouchableOpacity>
          );
+    }
+
+    renderMeCard(user) {
+        return (
+            <View style={styles.main_container}>
+                <View style={styles.card}>
+                    <View style={styles.image_container}>
+                        <Image source={getImageFromName(user.photoId)} style={styles.image}/>
+                    </View>
+                    <View style={styles.text_container}>
+                        <Text style={styles.text}>{user.name}</Text>
+                        <RatingStars rating={4}/>
+                        <Text style={styles.text}>{this.props.date}</Text>
+                    </View>
+                </View>
+            </View>
+        );
+    }
+
+    launchPopUp() {
+        Alert.alert('Inscription', 'Voulez-vous intégrer l\'événement à cette date ?',
+            [
+                {text: 'Annuler', onPress: () => {}, style: 'cancel'},
+                {text: 'OK', onPress: () => {this.props.callback(this.props.user.id)}},
+            ],
+        );
     }
 }
 

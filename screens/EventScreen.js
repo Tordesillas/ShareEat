@@ -14,45 +14,54 @@ export default class EventScreen extends React.Component {
         headerTitleStyle: { color: Colors.WHITE }
     };
 
-    render() {
-        const event = this.props.navigation.state.params.event;
+    constructor(props) {
+        super(props);
 
+        this.state = {
+            event: this.props.navigation.state.params.event
+        }
+    }
+
+    render() {
         return (
             <View style={styles.main_container}>
                 <View style={styles.header_container}>
                     <ImageBackground source={Images.dinner} style={styles.main_image}>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate("Profile",
-                            {profile: Users[event.organizer]})}>
+                            {profile: Users[this.state.event.organizer]})}>
                             <View style={styles.space}/>
-                            <Image source={getImageFromName(Users[event.organizer].photoId)} style={styles.organizer_icon}/>
+                            <Image source={getImageFromName(Users[this.state.event.organizer].photoId)} style={styles.organizer_icon}/>
                             <View style={styles.space}/>
                         </TouchableOpacity>
                     </ImageBackground>
                 </View>
                 <View style={styles.organizer_container}>
-                    <Text style={styles.organizer_name}>Organisé par {Users[event.organizer].name}</Text>
-                    <Text style={styles.event_name}>{event.name}</Text>
+                    <Text style={styles.organizer_name}>Organisé par {Users[this.state.event.organizer].name}</Text>
+                    <Text style={styles.event_name}>{this.state.event.name}</Text>
                 </View>
                 <View style={styles.main_data_container}>
-                    <EventDataCard text={event.location} img={Images.location}/>
+                    <EventDataCard text={this.state.event.location} img={Images.location}/>
                     <View style={styles.divider}/>
-                    <EventDataCard text={isoDateToUser(event.date)} img={Images.date}/>
+                    <EventDataCard text={isoDateToUser(this.state.event.date)} img={Images.date}/>
                     <View style={styles.divider}/>
-                    <EventDataCard text={priceToUser(event.price)} img={Images.price}/>
+                    <EventDataCard text={priceToUser(this.state.event.price)} img={Images.price}/>
                 </View>
                 <View style={styles.main_divider}/>
                 <View style={styles.description_container}>
                     <Text style={styles.title}>Description</Text>
-                    <Text style={styles.description}>{event.description}</Text>
+                    <Text style={styles.description}>{this.state.event.description}</Text>
                 </View>
                 <View style={styles.main_divider}/>
                 <View style={styles.participants_container}>
-                    <Text style={styles.title}>Participants : {event.participants.length} / {event.maxParticipantsNumber}</Text>
+                    <Text style={styles.title}>Participants : {this.numberOfParticipants()} / {this.state.event.maxParticipantsNumber}</Text>
                     <FlatList
-                        data={this.findParticipants(event)}
+                        data={this.findParticipants(this.state.event)}
                         keyExtractor={(item) => item.id+""}
                         renderItem={({item}) =>
-                            <UserCard user={item} date={addDaysToIsoDate(event.date, item.id)} navigation={this.props.navigation}/>}
+                            <UserCard user={item}
+                                      date={addDaysToIsoDate(this.state.event.date, item.id)}
+                                      navigation={this.props.navigation}
+                                      callback={this.enrollMe.bind(this)}/>}
                         horizontal={true}/>
                 </View>
             </View>
@@ -61,13 +70,27 @@ export default class EventScreen extends React.Component {
 
     findParticipants(event) {
         let participants = [];
-        for (const participantId of event.participants) {
+        for (const participantId of this.state.event.participants) {
             participants.push(Users[participantId]);
         }
         for (let i = event.participants.length; i < event.maxParticipantsNumber; i++) {
-            participants.push({id: i+1});
+            if (i+1 === event.enrolled) {
+                participants.push({id: i+1, name: "Moi", photoId: "people3"})
+            } else {
+                participants.push({id: i+1});
+            }
         }
         return participants;
+    }
+
+    enrollMe(id) {
+        let newEvent = this.state.event;
+        newEvent.enrolled = id;
+        this.setState({event: newEvent});
+    }
+
+    numberOfParticipants() {
+        return (this.state.event.enrolled === -1) ? this.state.event.participants.length : this.state.event.participants.length+1;
     }
 }
 
