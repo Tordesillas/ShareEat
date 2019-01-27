@@ -10,6 +10,10 @@ import Colors from "../constants/Colors";
 import NotImplementedScreen from "../screens/NotImplementedScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import EventTabView from "../screens/EventTabView";
+import { faHome } from "@fortawesome/free-solid-svg-icons/faHome";
+import { faUserAlt } from "@fortawesome/free-solid-svg-icons/faUserAlt";
+import { faComments } from "@fortawesome/free-solid-svg-icons/faComments";
+import { faUtensils } from "@fortawesome/free-solid-svg-icons/faUtensils";
 
 const HomeStack = createStackNavigator({
     Home: HomeScreen,
@@ -24,11 +28,7 @@ HomeStack.navigationOptions = {
     tabBarIcon: ({ focused }) => (
         <TabBarIcon
             focused={focused}
-            name={
-                Platform.OS === 'ios'
-                    ? `ios-information-circle${focused ? '' : '-outline'}`
-                    : 'md-information-circle'
-            }
+            icon={faHome}
         />
     ),
 };
@@ -41,9 +41,10 @@ MyEventsStack.navigationOptions = {
     tabBarIcon: ({ focused }) => (
         <TabBarIcon
             focused={focused}
-            name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+            icon={faUtensils}
         />
     ),
+
 };
 
 const ProfileStack = createStackNavigator({
@@ -54,7 +55,7 @@ ProfileStack.navigationOptions = {
     tabBarIcon: ({ focused }) => (
         <TabBarIcon
             focused={focused}
-            name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+            icon={faUserAlt}
         />
     ),
 };
@@ -67,20 +68,7 @@ MessagingStack.navigationOptions = {
     tabBarIcon: ({ focused }) => (
         <TabBarIcon
             focused={focused}
-            name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
-        />
-    ),
-};
-
-const SettingsStack = createStackNavigator({
-    NotImplemented: NotImplementedScreen
-});
-SettingsStack.navigationOptions = {
-    tabBarLabel: 'Paramètres',
-    tabBarIcon: ({ focused }) => (
-        <TabBarIcon
-            focused={focused}
-            name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+            icon={faComments}
         />
     ),
 };
@@ -90,7 +78,6 @@ const TabNavigatorStack = createBottomTabNavigator({
     MyEventsStack,
     MessagingStack,
     ProfileStack,
-    SettingsStack
 }, {
     tabBarOptions: {
         activeTintColor: Colors.CORAL,
