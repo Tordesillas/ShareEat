@@ -82,12 +82,12 @@ const styles = StyleSheet.create({
     flatListLabel: {
         color: Colors.CORAL,
         fontWeight: "bold",
-        fontSize: 14,
+        fontSize: 18,
         marginBottom: 5,
     },
     flatListItem: {
         color: Colors.WHITE,
-        fontSize: 11
+        fontSize: 15
     },
     eventDetails: {
         flexDirection: 'row',

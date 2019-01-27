@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         alignContent: 'center',
-        margin: 15
+        padding: 30
     },
     iconPanneau: {
         marginBottom: 20,

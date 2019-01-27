@@ -5,7 +5,8 @@ import Images, {getImageFromName} from "../constants/Images";
 import RatingStars from "../components/RatingStars";
 import UserMark from "../components/UserMark";
 import Users from "../constants/Users";
-import {Button} from "react-native-elements";
+import { Button, Rating } from "react-native-elements";
+import MainTitle from "../components/MainTitle";
 
 export default class ProfileScreen extends React.Component {
     static navigationOptions = {
@@ -16,7 +17,13 @@ export default class ProfileScreen extends React.Component {
 
     state = {
         modalVisible: false,
+        ratingValue: 1,
     };
+
+    constructor(props) {
+        super(props);
+        this.ratingCompleted = this.ratingCompleted.bind(this);
+    }
 
     render() {
         const profile = this.props.navigation.state.params.profile;
@@ -83,19 +90,57 @@ export default class ProfileScreen extends React.Component {
 
     addModal(profile) {
         return (
+            <View style={styles.modalContent}>
             <Modal
-                animationType="slide"
+                animationType="fade"
                 transparent={true}
                 visible={this.state.modalVisible}
                 onRequestClose={() => {}}>
                 <View style={styles.modalContent}>
-                    <Text>Vote pour {profile.name}</Text>
+                    <View style={styles.innerContainerTransparentStyle}>
+                        <MainTitle title={"Attribuez une note à " + profile.name + " !"}/>
+                        <Text style={{fontSize:16, marginTop: 20}}>Glissez votre doigt sur les étoiles pour noter la personne.</Text>
 
-                    <Button title={"Annuler"} onPress={() => {this.setState({modalVisible: false})}}/>
+                        <Text style={{margin: 15, fontSize: 16}}>Note : {this.state.ratingValue} / 5</Text>
+
+                        <Rating
+                            // showRating
+                            type="star"
+                            fractions={0}
+                            ratingColor={Colors.CORAL}
+                            startingValue={this.state.ratingValue}
+                            imageSize={40}
+                            onFinishRating={this.ratingCompleted}
+                            style={{ paddingVertical: 10 }}
+
+                        />
+
+                        <View style={{flexDirection: 'row', margin: 20}}>
+                            <Button title={"Valider"} buttonStyle={styles.buttonValidate} onPress={() => {this.setState({modalVisible: false})}}/>
+                            <Button title={"Fermer"} buttonStyle={styles.buttonClose} onPress={() => {this.setState({modalVisible: false})}}/>
+                        </View>
+
+                    </View>
                 </View>
             </Modal>
-
+            </View>
         );
+    }
+
+    ratingCompleted(rating) {
+        const user = this.props.navigation.state.params.profile;
+        this.setState({ratingValue: rating});
+        user.marks.push([user.marks.length + 1, rating]);
+
+        let note = 0;
+
+        user.marks.forEach((mark) => {
+            note += mark[1];
+        });
+
+        note /= user.marks.length;
+
+        user.note = note;
     }
 }
 
@@ -141,7 +186,7 @@ const styles = StyleSheet.create({
     },
     biography: {
         flex: 8,
-        fontSize: 12,
+        fontSize: 14,
         color: Colors.WHITE
     },
     quote: {
@@ -182,13 +227,33 @@ const styles = StyleSheet.create({
     },
     modalContent: {
         flex: 1,
-        backgroundColor: "white",
-        padding: 22,
+        backgroundColor: 'rgba(0, 0, 0, 0.75)',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    innerContainerTransparentStyle: {
+        backgroundColor: Colors.WHITE,
+        padding: 20,
         marginHorizontal: 50,
         marginVertical: 100,
         justifyContent: "center",
         alignItems: "center",
-        borderRadius: 4,
         borderColor: "rgba(0, 0, 0, 0.1)"
+    },
+    buttonValidate: {
+        borderRadius: 100,
+        backgroundColor: "#388e3c",
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingLeft: 20,
+        paddingRight: 20,
+    },
+    buttonClose: {
+        borderRadius: 100,
+        backgroundColor: Colors.LIGHT_BLUE,
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingLeft: 20,
+        paddingRight: 20,
     }
 });
