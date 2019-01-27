@@ -116,8 +116,13 @@ export default class ProfileScreen extends React.Component {
                         />
 
                         <View style={{flexDirection: 'row', margin: 20}}>
-                            <Button title={"Valider"} buttonStyle={styles.buttonValidate} onPress={() => {this.setState({modalVisible: false})}}/>
-                            <Button title={"Fermer"} buttonStyle={styles.buttonClose} onPress={() => {this.setState({modalVisible: false})}}/>
+                            <Button title={"Valider"} buttonStyle={styles.buttonValidate} onPress={() => {
+                                this.onValidate();
+                                this.onCloseModal()
+                            }}/>
+                            <Button title={"Fermer"} buttonStyle={styles.buttonClose} onPress={() => {
+                                this.onCloseModal();
+                            }}/>
                         </View>
 
                     </View>
@@ -128,9 +133,12 @@ export default class ProfileScreen extends React.Component {
     }
 
     ratingCompleted(rating) {
-        const user = this.props.navigation.state.params.profile;
         this.setState({ratingValue: rating});
-        user.marks.push([user.marks.length + 1, rating]);
+    }
+
+    onValidate() {
+        const user = this.props.navigation.state.params.profile;
+        user.marks.push([user.marks.length + 1, this.state.ratingValue]);
 
         let note = 0;
 
@@ -141,6 +149,10 @@ export default class ProfileScreen extends React.Component {
         note /= user.marks.length;
 
         user.note = note;
+    }
+
+    onCloseModal()  {
+        this.setState({modalVisible: false})
     }
 }
 
