@@ -66,7 +66,7 @@ export default class SearchEventScreen extends React.Component {
         for (let event of events) {
             if (event.type === "meetic")
                 meetic.push(event);
-            else if (event.type === "classique")
+            else if (event.type === "classic")
                 classic.push(event);
             else
                 dpp.push(event);
