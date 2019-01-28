@@ -4,7 +4,7 @@ export default [
         name: "Le monde merveilleux de Totoro",
         price: 0,
         town: "Nice",
-        type: "meetic",
+        type: "dpp",
         date: "2019-06-15T00:05:32.000Z",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
         location: "36 Rue des maisons roses, 06410 Biot",
@@ -32,7 +32,7 @@ export default [
         name: "Repas 3",
         price: 0,
         town: "New-York",
-        type: "meetic",
+        type: "dpp",
         date: "2019-10-15T00:05:32.000Z",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
         location: "36 Rue des maisons roses, 06410 Biot",
@@ -74,7 +74,7 @@ export default [
         name: "Le monde merveilleux de Totoro",
         price: 4,
         town: "Nice",
-        type: "meetic",
+        type: "dpp",
         date: "2019-06-15T00:05:32.000Z",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
         location: "36 Rue des maisons roses, 06410 Biot",
@@ -92,9 +92,9 @@ export default [
         date: "2019-06-15T00:05:32.000Z",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
         location: "36 Rue des maisons roses, 06410 Biot",
-        organizer: 2,
+        organizer: 1,
         participants: [1, 2],
         maxParticipantsNumber: 5,
         enrolled: -1
-    },
+    }
 ];

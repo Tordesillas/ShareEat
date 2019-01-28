@@ -29,7 +29,7 @@ export default class SearchEventScreen extends React.Component {
     }
 
     static navigationOptions = {
-        title: "SearchEvent",
+        title: "Rejoindre un événement",
         headerStyle: {backgroundColor: Colors.DARK_GREY},
         headerTitleStyle: {color: Colors.WHITE}
     };
@@ -42,7 +42,8 @@ export default class SearchEventScreen extends React.Component {
         index: 0,
         routes: [
             {key: "classique", title: "Classique"},
-            {key: "meetic", title: "Meetic"}
+            {key: "meetic", title: "Meetic"},
+            {key: "dpp", title: "Dîner presque parfait"}
         ]
     };
 
@@ -61,11 +62,14 @@ export default class SearchEventScreen extends React.Component {
         let events = this.filterEvent();
         let meetic = [];
         let classic = [];
+        let dpp = [];
         for (let event of events) {
             if (event.type === "meetic")
                 meetic.push(event);
-            else if (this.state.checkedClassic)
+            else if (event.type === "classique")
                 classic.push(event);
+            else
+                dpp.push(event);
         }
 
         return (
@@ -178,7 +182,12 @@ export default class SearchEventScreen extends React.Component {
                             <ScrollView style={styles.scene}>
                                 <EventList events={meetic} screen={"SearchEvent"} navigation={this.props.navigation}/>
                             </ScrollView>
-                        )
+                        ),
+                        dpp: () => (
+                            <ScrollView style={styles.scene}>
+                                <EventList events={dpp} screen={"SearchEvent"} navigation={this.props.navigation}/>
+                            </ScrollView>
+                        ),
                     })}
                     renderTabBar={this._renderTabBar}
                     onIndexChange={index => this.setState({index})}
