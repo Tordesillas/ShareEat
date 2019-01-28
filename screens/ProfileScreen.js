@@ -90,7 +90,6 @@ export default class ProfileScreen extends React.Component {
 
     addModal(profile) {
         return (
-            <View style={styles.modalContent}>
             <Modal
                 animationType="fade"
                 transparent={true}
@@ -128,7 +127,6 @@ export default class ProfileScreen extends React.Component {
                     </View>
                 </View>
             </Modal>
-            </View>
         );
     }
 
