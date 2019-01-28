@@ -34,7 +34,7 @@ export default class EventList extends React.Component {
                 onPress={() => {
                   item.type === "dpp"
                     ? this.props.navigation.navigate("Event", { event: item })
-                    : null;
+                    : this.props.navigation.navigate("NotImplemented");
                 }}
               >
                 <View style={styles.eventDetails}>
