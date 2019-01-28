@@ -138,7 +138,7 @@ export default class ProfileScreen extends React.Component {
 
     onValidate() {
         const user = this.props.navigation.state.params.profile;
-        user.marks.push([user.marks.length + 1, this.state.ratingValue]);
+        user.marks.push([0, this.state.ratingValue]);
 
         let note = 0;
 
