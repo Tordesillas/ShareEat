@@ -1,6 +1,6 @@
 import React from "react";
-import {StyleSheet, View, Modal, Dimensions,TouchableOpacity} from "react-native";
-import {SearchBar, CheckBox, Text} from "react-native-elements";
+import {StyleSheet, View, Modal, Dimensions,TouchableOpacity, ScrollView} from "react-native";
+import {SearchBar, Text} from "react-native-elements";
 import Events from "../constants/Events";
 import MultiSlider from "@ptomasroos/react-native-multi-slider";
 import DatePicker from "react-native-datepicker";
@@ -75,49 +75,34 @@ export default class SearchEventScreen extends React.Component {
                     placeholder="Type your city here"
                 />
                 <Modal
+                    onRequestClose={() => {}}
                     animationType="slide"
                     transparent
                     visible={this.state.modalVisible}>
                     <View style={styles.modalStyle}>
                         <View style={styles.containerStyle}>
-                            <View style={styles.checkboxs}>
-                                <CheckBox
-                                    title="Meetic"
-                                    checked={this.state.checkedMeetic}
-                                    onPress={() =>
-                                        this.setState({
-                                            checkedMeetic: !this.state.checkedMeetic
-                                        })
-                                    }
-                                />
-                                <CheckBox
-                                    title="Classic"
-                                    checked={this.state.checkedClassic}
-                                    onPress={() =>
-                                        this.setState({
-                                            checkedClassic: !this.state.checkedClassic
-                                        })
-                                    }
-                                />
-                            </View>
                             <Text style={styles.text}>
-                                {"price from " +
+                                {"Prix de " +
                                 this.state.prices[0] +
-                                "$ to " +
+                                "$ à " +
                                 this.state.prices[1] +
                                 "$"}
                             </Text>
-                            <MultiSlider
-                                values={[0, 20]}
-                                sliderLength={280}
-                                onValuesChange={val => {
-                                    this.setState({prices: val});
-                                }}
-                                min={0}
-                                max={20}
-                                step={1}
-                                style={styles.margins}
-                            />
+                            <View style={styles.margins}>
+                                <MultiSlider
+                                    values={[0, 20]}
+                                    sliderLength={280}
+                                    onValuesChange={val => {
+                                        this.setState({prices: val});
+                                    }}
+                                    min={0}
+                                    max={20}
+                                    step={1}
+                                />
+                            </View>
+                            <Text style={styles.text}>
+                                Date de début
+                            </Text>
                             <DatePicker
                                 style={styles.datePicker}
                                 date={this.state.dateFrom}
@@ -144,6 +129,9 @@ export default class SearchEventScreen extends React.Component {
                                     this.setState({dateFrom: date});
                                 }}
                             />
+                            <Text style={styles.text}>
+                                Date de fin
+                            </Text>
                             <DatePicker
                                 style={styles.datePicker}
                                 date={this.state.dateTo}
@@ -169,7 +157,7 @@ export default class SearchEventScreen extends React.Component {
                                     this.setState({dateTo: date});
                                 }}/>
 
-                            <TouchableOpacity onPress={() => {this.setModalVisible(!this.state.modalVisible);}} style={styles.button}>
+                            <TouchableOpacity onPress={() => {this.setModalVisible(!this.state.modalVisible);}} style={styles.closeButton}>
                                 <Text style={styles.buttonText}>Fermer</Text>
                             </TouchableOpacity>
                         </View>
@@ -182,14 +170,14 @@ export default class SearchEventScreen extends React.Component {
                     navigationState={this.state1}
                     renderScene={SceneMap({
                         classique: () => (
-                            <View style={styles.scene}>
+                            <ScrollView style={styles.scene}>
                                 <EventList events={classic} screen={"SearchEvent"} navigation={this.props.navigation}/>
-                            </View>
+                            </ScrollView>
                         ),
                         meetic:() => (
-                            <View style={styles.scene}>
+                            <ScrollView style={styles.scene}>
                                 <EventList events={meetic} screen={"SearchEvent"} navigation={this.props.navigation}/>
-                            </View>
+                            </ScrollView>
                         )
                     })}
                     renderTabBar={this._renderTabBar}
@@ -243,8 +231,10 @@ const styles = StyleSheet.create({
     },
     containerStyle: {
         flex: 1,
-        marginTop: screen_height * 0.075,
-        marginBottom: screen_height * 0.075,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        marginTop: screen_height * 0.25,
+        marginBottom: screen_height * 0.25,
         marginLeft: screen_width * 0.075,
         marginRight: screen_width * 0.075,
         backgroundColor: 'rgba(255,255,255,0.9)',
@@ -284,6 +274,19 @@ const styles = StyleSheet.create({
     },
     button: {
         backgroundColor: Colors.CORAL,
+        marginTop: 5,
+        marginLeft: 5,
+        marginRight: 5,
+        marginBottom: 5,
+        justifyContent: "center",
+        alignItems: "center",
+        paddingTop: 10,
+        paddingBottom: 10,
+        borderRadius: 5,
+        fontSize: 15,
+    },
+    closeButton:{
+        backgroundColor: Colors.LIGHT_BLUE,
         marginTop: 5,
         marginLeft: 5,
         marginRight: 5,
