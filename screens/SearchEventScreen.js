@@ -68,7 +68,7 @@ export default class SearchEventScreen extends React.Component {
                 meetic.push(event);
             else if (event.type === "classic")
                 classic.push(event);
-            else
+            else if (event.type === "dpp")
                 dpp.push(event);
         }
 
@@ -202,12 +202,6 @@ export default class SearchEventScreen extends React.Component {
 
     filterEvent() {
         let events = this.state.events.filter(event => {
-            if (event.type === "meetic" && this.state.checkedMeetic) return true;
-            if (event.type === "classic" && this.state.checkedClassic) return true;
-            return false;
-        });
-
-        events = events.filter(event => {
             if (this.state.prices[0] <= event.price && event.price <= this.state.prices[1])
                 return true;
             return false;
