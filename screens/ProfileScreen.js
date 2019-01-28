@@ -253,7 +253,7 @@ const styles = StyleSheet.create({
         borderColor: "rgba(0, 0, 0, 0.1)"
     },
     buttonValidate: {
-        borderRadius: 100,
+        borderRadius: 5,
         backgroundColor: "#388e3c",
         paddingTop: 10,
         paddingBottom: 10,
@@ -261,7 +261,7 @@ const styles = StyleSheet.create({
         paddingRight: 20,
     },
     buttonClose: {
-        borderRadius: 100,
+        borderRadius: 5,
         backgroundColor: Colors.LIGHT_BLUE,
         paddingTop: 10,
         paddingBottom: 10,
