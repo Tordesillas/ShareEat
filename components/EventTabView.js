@@ -1,11 +1,17 @@
 import React from "react";
-import {View, StyleSheet, Dimensions, Text} from "react-native";
+import {View, StyleSheet, Dimensions} from "react-native";
 import {TabView, SceneMap, TabBar} from "react-native-tab-view";
 import Colors from "../constants/Colors";
-import EventList from "../components/EventList";
-import {Button, SearchBar} from "react-native-elements";
+import EventList from "./EventList";
+import {SearchBar} from "react-native-elements";
 
 export default class EventTabView extends React.Component {
+    static navigationOptions = {
+        title: "EventTabView",
+        headerStyle: {backgroundColor: Colors.DARK_GREY},
+        headerTitleStyle: {color: Colors.WHITE}
+    };
+
     constructor(props) {
         super(props);
         let params = props.navigation.state.params;
@@ -18,12 +24,6 @@ export default class EventTabView extends React.Component {
             classic: listClassic
         };
     }
-
-    static navigationOptions = {
-        title: "EventTabView",
-        headerStyle: {backgroundColor: Colors.DARK_GREY},
-        headerTitleStyle: {color: Colors.WHITE}
-    };
 
     state1 = {
         index: 0,
@@ -50,7 +50,7 @@ export default class EventTabView extends React.Component {
             <TabBar
                 {...props}
                 indicatorStyle={styles.indicator}
-                style={styles.tabbar}
+                style={styles.tab_bar}
             />
         );
     };
@@ -76,7 +76,6 @@ export default class EventTabView extends React.Component {
                     }}
                 />
             </View>
-
         );
     }
 }
@@ -89,7 +88,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1
     },
-    tabbar: {
+    tab_bar: {
         backgroundColor: Colors.CORAL
     },
     indicator: {

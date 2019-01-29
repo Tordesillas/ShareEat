@@ -1,6 +1,4 @@
 import React from 'react';
-import { Icon } from 'expo';
-
 import Colors from '../constants/Colors';
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons/index";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'

@@ -1,7 +1,5 @@
 import React from 'react';
-import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator, createAppContainer } from 'react-navigation';
-
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import SearchEventScreen from "../screens/SearchEventScreen";
@@ -9,7 +7,7 @@ import EventScreen from "../screens/EventScreen";
 import Colors from "../constants/Colors";
 import NotImplementedScreen from "../screens/NotImplementedScreen";
 import ProfileScreen from "../screens/ProfileScreen";
-import EventTabView from "../screens/EventTabView";
+import EventTabView from "../components/EventTabView";
 import { faHome } from "@fortawesome/free-solid-svg-icons/faHome";
 import { faUserAlt } from "@fortawesome/free-solid-svg-icons/faUserAlt";
 import { faComments } from "@fortawesome/free-solid-svg-icons/faComments";
