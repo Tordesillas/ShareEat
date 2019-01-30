@@ -9,8 +9,12 @@ export default class UserMark extends React.Component {
         const user = this.props.user;
 
         return (
-            <TouchableOpacity style={styles.main_container} onPress={() => this.props.navigation.navigate("Profile",
-                {profile: user})}>
+            <TouchableOpacity style={styles.main_container} onPress={() => {
+                if (user.id === 3)
+                    this.props.navigation.navigate("NotImplemented");
+                else
+                    this.props.navigation.navigate("Profile", {profile: user});
+            }}>
                 <View style={styles.card}>
                     <View style={styles.header}>
                         <View style={styles.image_container}>
@@ -20,7 +24,7 @@ export default class UserMark extends React.Component {
                             <Text style={styles.text}>{user.name}</Text>
                             <RatingStars rating={this.props.mark}/>
                             <Text style={styles.text}>{this.props.date}</Text>
-                            <Text style={styles.text}>Il y a 2 mois</Text>
+                            <Text style={styles.text}>{this.getMarkDate()}</Text>
                         </View>
                     </View>
                     <View style={styles.opinion}>
@@ -29,6 +33,10 @@ export default class UserMark extends React.Component {
                 </View>
             </TouchableOpacity>
         )
+    }
+
+    getMarkDate() {
+        return (this.props.user.id === 3) ? "A l'instant" : "Il y a 2 mois";
     }
 }
 

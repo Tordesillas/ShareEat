@@ -15,14 +15,14 @@ export default class ProfileScreen extends React.Component {
         headerTitleStyle: { color: Colors.WHITE }
     };
 
-    state = {
-        modalVisible: false,
-        ratingValue: 1,
-    };
-
     constructor(props) {
         super(props);
         this.ratingCompleted = this.ratingCompleted.bind(this);
+
+        this.state = {
+            modalVisible: false,
+            ratingValue: 1
+        }
     }
 
     render() {
@@ -98,21 +98,19 @@ export default class ProfileScreen extends React.Component {
                 <View style={styles.modalContent}>
                     <View style={styles.innerContainerTransparentStyle}>
                         <MainTitle title={"Attribuez une note à " + profile.name + " !"}/>
+
                         <Text style={{fontSize:16, marginTop: 20}}>Glissez votre doigt sur les étoiles pour noter la personne.</Text>
 
                         <Text style={{margin: 15, fontSize: 16}}>Note : {this.state.ratingValue} / 5</Text>
 
                         <Rating
-                            // showRating
                             type="star"
                             fractions={0}
                             ratingColor={Colors.CORAL}
                             startingValue={this.state.ratingValue}
                             imageSize={40}
                             onFinishRating={this.ratingCompleted}
-                            style={{ paddingVertical: 10 }}
-
-                        />
+                            style={{ paddingVertical: 10 }} />
 
                         <View style={{flexDirection: 'row', margin: 20}}>
                             <Button title={"Valider"} buttonStyle={styles.buttonValidate} onPress={() => {
@@ -123,7 +121,6 @@ export default class ProfileScreen extends React.Component {
                                 this.onCloseModal();
                             }}/>
                         </View>
-
                     </View>
                 </View>
             </Modal>
@@ -136,7 +133,7 @@ export default class ProfileScreen extends React.Component {
 
     onValidate() {
         const user = this.props.navigation.state.params.profile;
-        user.marks.push([0, this.state.ratingValue]);
+        user.marks.push([3, this.state.ratingValue]);
 
         let note = 0;
 
@@ -150,7 +147,7 @@ export default class ProfileScreen extends React.Component {
     }
 
     onCloseModal()  {
-        this.setState({modalVisible: false})
+        this.setState({modalVisible: false});
     }
 }
 
