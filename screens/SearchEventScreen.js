@@ -1,12 +1,5 @@
 import React from "react";
-import {
-    StyleSheet,
-    View,
-    Modal,
-    Dimensions,
-    TouchableOpacity,
-    ScrollView
-} from "react-native";
+import {StyleSheet, View, Modal, TouchableOpacity, ScrollView, Image} from "react-native";
 import {SearchBar, Text} from "react-native-elements";
 import Events from "../constants/Events";
 import MultiSlider from "@ptomasroos/react-native-multi-slider";
@@ -14,14 +7,13 @@ import DatePicker from "react-native-datepicker";
 import Colors from "../constants/Colors";
 import EventList from "../components/EventList";
 import {TabBar, TabView} from "react-native-tab-view";
-
-const screen_height = Dimensions.get("window").height;
-const screen_width = Dimensions.get("window").width;
+import Images from "../constants/Images";
+import MainTitle from "../components/MainTitle";
 
 export default class SearchEventScreen extends React.Component {
     static navigationOptions = {
         title: "Rejoindre un événement",
-        headerStyle: {backgroundColor: Colors.DARK_GREY},
+        headerStyle: {backgroundColor: Colors.DARK_MEDIUM_BLUE},
         headerTitleStyle: {color: Colors.WHITE}
     };
 
@@ -33,8 +25,6 @@ export default class SearchEventScreen extends React.Component {
             query: "",
             meetic: [],
             classic: [],
-            checkedClassic: true,
-            checkedMeetic: true,
             prices: [0, 20],
             dateFrom: "2019-05-01",
             dateTo: "2019-11-01",
@@ -66,24 +56,30 @@ export default class SearchEventScreen extends React.Component {
 
         return (
             <View style={styles.main}>
-                <SearchBar
-                    onChangeText={this.handleSearch}
-                    placeholder="Entrez votre ville ici"
-                />
+                <View style={styles.filter_container}>
+                    <View style={{flex: 4}}>
+                        <SearchBar
+                            round
+                            onChangeText={this.handleSearch}
+                            placeholder="Entrez votre ville ici"
+                            containerStyle={{backgroundColor: Colors.DARK_BLUE}}
+                            inputStyle={{backgroundColor: Colors.DARK_MEDIUM_BLUE, color: Colors.WHITE}}
+                            placeholderTextColor={Colors.WHITE}
+                        />
+                    </View>
 
-                <TouchableOpacity onPress={() => {this.setModalVisible(true);}} style={styles.button}>
-                    <Text style={styles.buttonText}>Filtrer</Text>
-                </TouchableOpacity>
+                    <View style={styles.filter_button_container}>
+                        <TouchableOpacity onPress={() => {this.setModalVisible(true);}} style={styles.filter_button}>
+                            <Image source={Images.filter} style={styles.filter_icon}/>
+                        </TouchableOpacity>
+                    </View>
+                </View>
 
                 <TabView
                     navigationState={this.state}
                     renderScene={this._renderScene}
                     renderTabBar={this._renderTabBar}
                     onIndexChange={index => this.setState({index})}
-                    initialLayout={{
-                        width: Dimensions.get("window").width,
-                        height: Dimensions.get("window").height
-                    }}
                 />
 
                 {this.createModal()}
@@ -112,8 +108,9 @@ export default class SearchEventScreen extends React.Component {
         return (
             <TabBar
                 {...props}
-                indicatorStyle={styles.indicator}
-                style={styles.tab_bar}
+                indicatorStyle={{backgroundColor: Colors.WHITE}}
+                style={{backgroundColor: Colors.CORAL}}
+                labelStyle={{fontSize: 11}}
             />
         );
     };
@@ -122,7 +119,7 @@ export default class SearchEventScreen extends React.Component {
         switch (route.key) {
             case 'classic':
                 return (
-                    <ScrollView style={styles.scene}>
+                    <ScrollView style={{flex: 1}}>
                         <EventList
                             events={this.classicEvents}
                             screen={"SearchEvent"}
@@ -132,7 +129,7 @@ export default class SearchEventScreen extends React.Component {
                 );
             case 'meetic':
                 return (
-                    <ScrollView style={styles.scene}>
+                    <ScrollView style={{flex: 1}}>
                         <EventList
                             events={this.meeticEvents}
                             screen={"SearchEvent"}
@@ -142,7 +139,7 @@ export default class SearchEventScreen extends React.Component {
                 );
             case 'udpp':
                 return (
-                    <ScrollView style={styles.scene}>
+                    <ScrollView style={{flex: 1}}>
                         <EventList
                             events={this.udppEvents}
                             screen={"SearchEvent"}
@@ -158,95 +155,78 @@ export default class SearchEventScreen extends React.Component {
     createModal() {
         return (
             <Modal
-                onRequestClose={() => {
-                }}
-                animationType="slide"
+                onRequestClose={() => {}}
+                animationType="fade"
                 transparent
                 visible={this.state.modalVisible}>
-                <View style={styles.modalStyle}>
-                    <View style={styles.containerStyle}>
-                        <Text style={styles.text}>
-                            {"Prix de " +
-                            this.state.prices[0] +
-                            "$ à " +
-                            this.state.prices[1] +
-                            "$"}
-                        </Text>
-                        <View style={styles.margins}>
+                <View style={styles.modal_content}>
+                    <View style={styles.inner_container}>
+                        <MainTitle title={"Filtrer les événements"}/>
+
+                        <View style={styles.price_container}>
+                            <Text>
+                                {"Prix de " + this.state.prices[0] + "€ à " + this.state.prices[1] + "€"}
+                            </Text>
                             <MultiSlider
                                 values={[0, 20]}
                                 sliderLength={280}
-                                onValuesChange={val => {
-                                    this.setState({prices: val});
-                                }}
+                                onValuesChange={val => {this.setState({prices: val});}}
                                 min={0}
                                 max={20}
                                 step={1}
                             />
                         </View>
-                        <Text style={styles.text}>Date de début</Text>
-                        <DatePicker
-                            style={styles.datePicker}
-                            date={this.state.dateFrom}
-                            mode="date"
-                            placeholder="select date"
-                            format="YYYY-MM-DD"
-                            minDate="2019-05-01"
-                            maxDate="2019-11-01"
-                            confirmBtnText="Confirm"
-                            cancelBtnText="Cancel"
-                            customStyles={{
-                                dateIcon: {
-                                    position: "absolute",
-                                    left: 0,
-                                    top: 4,
-                                    marginLeft: 0
-                                },
-                                dateInput: {
-                                    marginLeft: 36
-                                }
-                                // ... You can check the source to find the other keys.
-                            }}
-                            onDateChange={date => {
-                                this.setState({dateFrom: date});
-                            }}
-                        />
-                        <Text style={styles.text}>Date de fin</Text>
-                        <DatePicker
-                            style={styles.datePicker}
-                            date={this.state.dateTo}
-                            mode="date"
-                            placeholder="select date"
-                            format="YYYY-MM-DD"
-                            minDate="2019-05-01"
-                            maxDate="2019-11-01"
-                            confirmBtnText="Confirm"
-                            cancelBtnText="Cancel"
-                            customStyles={{
-                                dateIcon: {
-                                    position: "absolute",
-                                    left: 0,
-                                    top: 4,
-                                    marginLeft: 0
-                                },
-                                dateInput: {
-                                    marginLeft: 36
-                                }
-                            }}
-                            onDateChange={date => {
-                                this.setState({dateTo: date});
-                            }}
-                        />
+
+                        <View style={{width: 280}}>
+                            <Text>Date de début</Text>
+                            <View style={styles.date_picker_container}>
+                                <DatePicker
+                                    style={styles.date_picker}
+                                    date={this.state.dateFrom}
+                                    mode="date"
+                                    placeholder="select date"
+                                    format="YYYY-MM-DD"
+                                    minDate="2019-05-01"
+                                    maxDate="2019-11-01"
+                                    confirmBtnText="Confirm"
+                                    cancelBtnText="Cancel"
+                                    customStyles={{
+                                        dateIcon: { position: "absolute", left: 0, top: 4, marginLeft: 0 },
+                                        dateInput: { marginLeft: 36 }
+                                    }}
+                                    onDateChange={date => {this.setState({dateFrom: date})}}
+                                />
+                            </View>
+
+                            <Text>Date de fin</Text>
+                            <View style={styles.date_picker_container}>
+                                <DatePicker
+                                    style={styles.date_picker}
+                                    date={this.state.dateTo}
+                                    mode="date"
+                                    placeholder="select date"
+                                    format="YYYY-MM-DD"
+                                    minDate="2019-05-01"
+                                    maxDate="2019-11-01"
+                                    confirmBtnText="Confirm"
+                                    cancelBtnText="Cancel"
+                                    customStyles={{
+                                        dateIcon: { position: "absolute", left: 0, top: 4, marginLeft: 0 },
+                                        dateInput: { marginLeft: 36 }
+                                    }}
+                                    onDateChange={date => {this.setState({dateTo: date})}}
+                                />
+                            </View>
+                        </View>
+
 
                         <TouchableOpacity
-                            onPress={() => {
-                                this.setModalVisible(!this.state.modalVisible);
-                            }}
-                            style={styles.closeButton}
-                        >
-                            <Text style={styles.buttonText}>Fermer</Text>
+                            onPress={() => {this.setModalVisible(!this.state.modalVisible)}}
+                            style={styles.close_button}>
+                            <Text style={styles.button_text}>Fermer</Text>
                         </TouchableOpacity>
                     </View>
+
                 </View>
             </Modal>
         );
@@ -258,82 +238,72 @@ export default class SearchEventScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    modalStyle: {
-        flex: 1,
-        backgroundColor: "rgba(0,0,0,0.5)"
-    },
-    containerStyle: {
-        flex: 1,
-        flexDirection: "column",
-        justifyContent: "space-between",
-        marginTop: screen_height * 0.25,
-        marginBottom: screen_height * 0.25,
-        marginLeft: screen_width * 0.075,
-        marginRight: screen_width * 0.075,
-        backgroundColor: "rgba(255,255,255,0.9)",
-        borderRadius: 5
-    },
     main: {
-        backgroundColor: Colors.GREY,
+        backgroundColor: Colors.DARK_BLUE,
         color: Colors.WHITE,
         flex: 1,
         flexDirection: "column",
         justifyContent: "space-between"
     },
-    text: {
-        color: "black",
-        marginLeft: 15
+    filter_container: {
+        flexDirection: "row"
     },
-    margins: {
-        marginLeft: 15
-    },
-    datePicker: {
-        marginLeft: 15,
-        width: 200,
-        justifyContent: "center"
-    },
-    scene: {
+    filter_button_container: {
         flex: 1,
-        backgroundColor: Colors.GREY
+        justifyContent: "center",
+        alignItems: "center"
     },
-    container: {
-        flex: 1
-    },
-    tab_bar: {
-        backgroundColor: Colors.CORAL
-    },
-    indicator: {
-        backgroundColor: Colors.WHITE
-    },
-    button: {
+    filter_button: {
+        alignItems: 'center',
+        justifyContent: 'center',
         backgroundColor: Colors.CORAL,
-        marginTop: 5,
-        marginLeft: 5,
-        marginRight: 5,
-        marginBottom: 5,
+        width: 40,
+        height: 40,
+        borderRadius: 40
+    },
+    filter_icon: {
+        height: 20,
+        width: 20,
+        aspectRatio: 1,
+        resizeMode: 'contain',
+    },
+    modal_content: {
+        flex: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.75)',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    inner_container: {
+        backgroundColor: Colors.WHITE,
+        padding: 20,
+        marginHorizontal: 50,
+        marginVertical: 100,
         justifyContent: "center",
         alignItems: "center",
-        paddingTop: 10,
-        paddingBottom: 10,
-        borderRadius: 5,
-        fontSize: 15
+        borderColor: "rgba(0, 0, 0, 0.1)"
     },
-    closeButton: {
+    price_container: {
+        marginTop: 20,
+        marginBottom: 10
+    },
+    date_picker: {
+        marginTop: 5,
+        marginBottom: 15,
+        width: 200,
+    },
+    date_picker_container: {
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    close_button: {
+        borderRadius: 5,
         backgroundColor: Colors.LIGHT_BLUE,
-        marginTop: 5,
-        marginLeft: 5,
-        marginRight: 5,
-        marginBottom: 5,
-        justifyContent: "center",
-        alignItems: "center",
         paddingTop: 10,
         paddingBottom: 10,
-        borderRadius: 5,
-        fontSize: 15
+        paddingLeft: 20,
+        paddingRight: 20,
     },
-    buttonText: {
+    button_text: {
         color: Colors.WHITE,
-        textTransform: "uppercase",
-        fontWeight: "bold"
     }
 });

@@ -22,6 +22,7 @@ export default {
     left_quote: require('../assets/images/left_quote.png'),
     right_quote: require('../assets/images/right_quote.png'),
     edit: require('../assets/images/edit.png'),
+    filter: require('../assets/images/filter.png'),
 };
 
 export function getImageFromName(name) {
