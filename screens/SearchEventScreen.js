@@ -119,7 +119,7 @@ export default class SearchEventScreen extends React.Component {
         switch (route.key) {
             case 'classic':
                 return (
-                    <ScrollView style={{flex: 1}}>
+                    <ScrollView style={styles.event_list_container}>
                         <EventList
                             events={this.classicEvents}
                             screen={"SearchEvent"}
@@ -129,7 +129,7 @@ export default class SearchEventScreen extends React.Component {
                 );
             case 'meetic':
                 return (
-                    <ScrollView style={{flex: 1}}>
+                    <ScrollView style={styles.event_list_container}>
                         <EventList
                             events={this.meeticEvents}
                             screen={"SearchEvent"}
@@ -139,7 +139,7 @@ export default class SearchEventScreen extends React.Component {
                 );
             case 'udpp':
                 return (
-                    <ScrollView style={{flex: 1}}>
+                    <ScrollView style={styles.event_list_container}>
                         <EventList
                             events={this.udppEvents}
                             screen={"SearchEvent"}
@@ -266,6 +266,10 @@ const styles = StyleSheet.create({
         width: 20,
         aspectRatio: 1,
         resizeMode: 'contain',
+    },
+    event_list_container: {
+        flex: 1,
+        paddingHorizontal: 10
     },
     modal_content: {
         flex: 1,

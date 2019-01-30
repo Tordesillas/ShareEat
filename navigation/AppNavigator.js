@@ -7,7 +7,6 @@ import EventScreen from "../screens/EventScreen";
 import Colors from "../constants/Colors";
 import NotImplementedScreen from "../screens/NotImplementedScreen";
 import ProfileScreen from "../screens/ProfileScreen";
-import EventTabView from "../components/EventTabView";
 import { faHome } from "@fortawesome/free-solid-svg-icons/faHome";
 import { faUserAlt } from "@fortawesome/free-solid-svg-icons/faUserAlt";
 import { faComments } from "@fortawesome/free-solid-svg-icons/faComments";
@@ -19,7 +18,6 @@ const HomeStack = createStackNavigator({
     SearchEvent: SearchEventScreen,
     NotImplemented: NotImplementedScreen,
     Profile: ProfileScreen,
-    EventTabView : EventTabView
 });
 HomeStack.navigationOptions = {
     tabBarLabel: 'Accueil',
